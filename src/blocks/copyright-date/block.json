@@ -1,0 +1,31 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "custom-theme/copyright-date",
+	"version": "0.1.0",
+	"title": "Copyright Date",
+	"category": "custom",
+	"icon": "smiley",
+	"description": "A block that displays a copyright with an optional starting year.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "copyright-date",
+	"editorScript": "file:./edit.js",
+	"editorStyle": "file:./edit.css",
+	"script": "file:./index.js",
+	"style": "file:./index.css",
+	"render": "file:./render.php",
+	"attributes": {
+    "fallbackCurrentYear": {
+        "type": "string"
+    },
+    "showStartingYear": {
+        "type": "boolean"
+    },
+    "startingYear": {
+        "type": "string"
+    }
+	}
+}

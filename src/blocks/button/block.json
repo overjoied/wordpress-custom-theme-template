@@ -1,0 +1,32 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "custom-theme/button",
+	"version": "0.1.0",
+	"title": "Button",
+	"category": "custom",
+	"icon": "smiley",
+	"description": "A button block with different sizes.",
+	"example": {},
+	"supports": {
+		"html": false
+	},
+	"textdomain": "button",
+	"editorScript": "file:./edit.js",
+	"editorStyle": "file:./edit.css",
+	"script": "file:./index.js",
+	"style": "file:./index.css",
+	"render": "file:./render.php",
+	"attributes": {
+		"size": {
+			"type": "string",
+			"enum": ["sm", "md", "lg"]
+		},
+		"text": {
+			"type": "string"
+		},
+		"url": {
+			"type": "string"
+		}
+	}
+}

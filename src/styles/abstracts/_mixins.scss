@@ -1,0 +1,54 @@
+@use "sass:map";
+@use 'sass:math';
+@use 'functions' as *;
+
+$types: (
+    min: 'min',
+    max: 'max',
+);
+
+$breakpoints: (
+  xs: 0,       // Mobile portrait
+  sm: 576px,   // Mobile landscape
+  md: 768px,   // Tablet portrait
+  lg: 992px,   // Tablet landscape / small laptop
+  xl: 1200px,  // Desktop
+  xxl:1400px,  // Large desktop / TV
+  uhd: 1920px, // Full HD / 1080p
+);
+
+@mixin media($breakpoint, $type: 'min') {
+    $mediaType: $type;
+    $width: $breakpoint;
+
+    @if (map.has-key($map: $breakpoints, $key: $breakpoint)) {
+        $width: map.get($breakpoints, $breakpoint);
+    } @else if math.is-unitless($width) {
+        $width: $width * 1px;
+    }
+
+    @if not (map.has-key($map: $types, $key: $type)) {
+        $mediaType: 'min';
+    }
+
+    @if ($mediaType == 'max') {
+        $width: $width - 1px;
+    }
+
+    @media (#{$mediaType}-width: $width) {
+        @content;
+    };
+}
+
+@mixin size($width, $height: $width) {
+  @if math.is-unitless($width) {
+    $width: rem($width * 1px)
+  }
+
+  @if math.is-unitless($height) {
+    $height: rem($height * 1px)
+  }
+
+  width: $width;
+  height: $height;
+}

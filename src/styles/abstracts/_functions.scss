@@ -1,0 +1,45 @@
+@use "sass:meta";
+@use "sass:map";
+@use 'sass:math';
+
+$unit-range: (
+  'px': 1px,
+  'em': 1em,
+  'rem': 1rem,
+);
+
+@function addUnit($value, $unit) {
+  @if meta.type-of($unit) != 'string' {
+    @error 'Value for unit should be a string.';
+  }
+
+  $matched-unit: map.get($unit-range, $unit);
+
+  @if $matched-unit {
+    @return $value * $matched-unit;
+  } @else {
+    @error 'Value for unit not a valid unit.';
+  }
+}
+
+@function px2unit($unit, $pixels, $context) {
+  @if $unit {
+    @if (math.is-unitless($pixels)) {
+      $pixels: $pixels * 1px;
+    }
+
+    @if (math.is-unitless($context)) {
+      $context: $context * 1px;
+    }
+
+    @return addUnit(math.div($pixels, $context), $unit);
+  }
+}
+
+@function em($pixels, $context) {
+  @return px2unit('em', $pixels, $context);
+}
+
+@function rem($pixels, $context: 10px) {
+  @return px2unit('rem', $pixels, $context);
+}

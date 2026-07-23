@@ -1,0 +1,32 @@
+{
+  "name": "wp-block-theme-boilerplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf build",
+    "build-block-manifest": "wp-scripts build-blocks-manifest --input=src --output=src/blocks/blocks-manifest.php",
+    "start": "webpack serve --mode development --open",
+    "dev": "npm run build-block-manifest && webpack --mode development --watch",
+    "build": "npm run clean && webpack --mode production"
+  },
+  "keywords": [],
+  "author": "Joanne Joie Cabang",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/webpack-env": "^1.18.8",
+    "@wordpress/scripts": "^30.15.0",
+    "autoprefixer": "^10.4.21",
+    "browser-sync": "^2.29.3",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "glob": "^11.0.2",
+    "sass": "^1.87.0",
+    "svg-sprite-loader": "^6.0.11",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.7",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1"
+  }
+}
