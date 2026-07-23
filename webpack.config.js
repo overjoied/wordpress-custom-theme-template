@@ -7,7 +7,7 @@ const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 
 // Auto-detect TS entries.
 const entries = {};
-glob.sync('./src/**/*.{ts,js}').forEach(file => {
+glob.sync('./src/**/*.{ts,js}', { ignore: './src/**/*.d.ts' }).forEach(file => {
   const srcPath = file.replace(/\\/g,'/');
   const destPath = srcPath.replace('src/', '');
   const key = destPath.split('.');

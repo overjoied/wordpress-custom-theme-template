@@ -58,6 +58,7 @@ return array(
 		'editorScript' => 'file:./edit.js',
 		'editorStyle' => 'file:./edit.css',
 		'script' => 'file:./index.js',
+		'style' => 'file:./index.css',
 		'render' => 'file:./render.php',
 		'attributes' => array(
 			'fallbackCurrentYear' => array(
