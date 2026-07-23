@@ -67,6 +67,16 @@ function add_custom_block_category( $categories, $post ) {
 add_filter( 'block_categories_all', __NAMESPACE__ . '\add_custom_block_category', 10, 2 );
 
 /**
+ * Every custom-theme/* block's own script and style (as declared via
+ * block.json's "script"/"style" keys) load deferred by default. Add a
+ * block's name here with 'script', 'style', or both to opt it out — e.g. for
+ * above-the-fold blocks where deferring would cause a visible delay/shift.
+ */
+const NON_DEFERRED_BLOCK_ASSETS = array(
+  'custom-theme/hero' => array( 'script', 'style' ),
+);
+
+/**
  * Enqueue custom block additional assets.
  *
  * @param string $block_content The normal block HTML that would be sent to the screen.
@@ -86,6 +96,7 @@ function enqueue_custom_block_styles() {
 
   foreach ( $blocks as $block_name ) {
     if ( page_has_block( $block_name ) ) {
+      defer_block_assets( $block_name );
 
       // Conditionally enqueue the styles and scripts of the components used in a specific block.
       // if ( $block_name === 'custom-theme/block-name' ) {
@@ -95,6 +106,28 @@ function enqueue_custom_block_styles() {
   }
 }
 add_action( 'enqueue_block_assets', __NAMESPACE__ . '\enqueue_custom_block_styles', 10, 2 );
+
+/**
+ * Defers a block's own script/style unless it's excluded via
+ * NON_DEFERRED_BLOCK_ASSETS. Scripts use WordPress's native loading-strategy
+ * API (which only applies defer when it's safe to do so given the script's
+ * dependencies); styles use the theme's existing preload/onload mechanism
+ * (see filter_stylesheet() in inc/template-functions.php).
+ *
+ * @param string $block_name The block's registered name, e.g. 'custom-theme/button'.
+ */
+function defer_block_assets( $block_name ) {
+  $excluded = NON_DEFERRED_BLOCK_ASSETS[ $block_name ] ?? array();
+
+  if ( ! in_array( 'script', $excluded, true ) ) {
+    wp_script_add_data( generate_block_asset_handle( $block_name, 'script' ), 'strategy', 'defer' );
+  }
+
+  if ( ! in_array( 'style', $excluded, true ) ) {
+    global $deferred_styles;
+    $deferred_styles[] = generate_block_asset_handle( $block_name, 'style' );
+  }
+}
 
 /**
  * Collects the names of blocks rendered in the active sidebar widget area for

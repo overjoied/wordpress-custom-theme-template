@@ -70,5 +70,30 @@ return array(
 				'type' => 'string'
 			)
 		)
+	),
+	'hero' => array(
+		'$schema' => 'https://schemas.wp.org/trunk/block.json',
+		'apiVersion' => 3,
+		'name' => 'custom-theme/hero',
+		'version' => '0.1.0',
+		'title' => 'Hero',
+		'category' => 'custom',
+		'icon' => 'cover-image',
+		'description' => 'A hero section with a heading and background image, powered by SCF fields.',
+		'example' => array(
+			
+		),
+		'supports' => array(
+			'html' => false,
+			'align' => true
+		),
+		'textdomain' => 'hero',
+		'acf' => array(
+			'mode' => 'auto',
+			'blockVersion' => 3,
+			'renderTemplate' => 'render.php'
+		),
+		'script' => 'file:./index.js',
+		'style' => 'file:./index.css'
 	)
 );

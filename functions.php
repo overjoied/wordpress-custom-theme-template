@@ -165,6 +165,11 @@ require get_template_directory() . "/inc/sidebars.php";
 require get_template_directory() . "/inc/theme-settings.php";
 
 /**
+ * Register SCF field groups and block-editor overrides.
+ */
+require get_template_directory() . "/inc/acf.php";
+
+/**
  * Restrict Gutenberg blocks.
  */
 function restrict_predefined_blocks( $allowed_block_types ) {
