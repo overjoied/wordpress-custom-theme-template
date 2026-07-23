@@ -91,7 +91,7 @@ module.exports = (env, argv) => {
         {
           host: 'localhost',
           port: 3000,
-          proxy: 'http://localhost/wp-block-theme-boilerplate/',
+          proxy: 'http://localhost/wp-cstm-theme-template-test-site/',
           files: ["build/*/**/*.*", "**/*.php"],
           logPrefix: "Wordpress Block Theme Boilerplate",
           open: true,
