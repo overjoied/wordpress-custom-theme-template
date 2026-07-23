@@ -28,60 +28,42 @@ function get_build_directory() {
  * @param $type      The type of asset to enqueue.
  * @param $name      Filenames of the assets to enqueue. Applicable only to
  *                   component and layout types.
- * @param $in_footer Whether to print the script in the footer. 
+ * @param $in_footer Whether to print the script in the footer.
  * @param $defer_css Whether to defer the stylesheet.
  * @param $defer_js  Whether to defer the script or load it asynchronously.
  */
 function enqueue_assets( $type = 'main', $name = '', $in_footer = true, $defer_css = true, $defer_js = true) {
   global $deferred_styles;
-  $allowed_types = array(
-    'admin',
-    'editor',
-    'main',
-    'components',
-    'layout'
-  );
 
-  if ( ! in_array( $type, $allowed_types )) {
+  $allowed_types = array( 'admin', 'editor', 'main', 'components', 'layout' );
+
+  if ( ! in_array( $type, $allowed_types, true ) ) {
     return;
   }
 
-  $is_main = $type === 'main';
-  $is_editor = $type === 'editor';
-  $has_subdir = $type === 'components' || $type === 'layout';
-  $css_path = $type;
-  $js_path = $type;
-
-  if ( ! $is_main ) {
-    $filename = $has_subdir ? $name : $type;
-    $dir = $has_subdir ? ( '/' . $filename ) : '';
-    
-    $css_path .= $dir . '/' . $filename;
-    $js_path .= $dir . '/' . $filename;
-  }
-
-  $id = $type . ( $has_subdir ? '-' . $name : '' );
-  $handle = TEXT_DOMAIN . '-' . $id;
+  $has_subdir = in_array( $type, array( 'components', 'layout' ), true );
+  $path       = $type === 'main' ? 'main' : ( $has_subdir ? "{$type}/{$name}/{$name}" : "{$type}/{$type}" );
+  $handle     = TEXT_DOMAIN . '-' . $type . ( $has_subdir ? "-{$name}" : '' );
 
   // Enqueue CSS
   // We won't enqueue styles for the editor since it is already added thru add_editor_style().
-  if ( ! $is_editor ) {
+  if ( $type !== 'editor' ) {
     \CustomTheme\enqueue_style(
       $handle,
-      $css_path,
+      $path,
       array(),
       _S_VERSION
     );
 
     if ( $defer_css ) {
-      array_push($deferred_styles, $handle);
+      $deferred_styles[] = $handle;
     }
   }
 
   // Enqueue JS
   \CustomTheme\enqueue_script(
     $handle,
-    $js_path,
+    $path,
     array(),
     _S_VERSION,
     $defer_js,
