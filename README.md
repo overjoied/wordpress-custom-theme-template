@@ -8,6 +8,7 @@ A classic (non-FSE) WordPress theme boilerplate built around Gutenberg blocks, T
 - A local WordPress install (this repo is the theme, dropped into `wp-content/themes/`)
 - PHP 8+ (uses typed properties / arrow functions in places)
 - Composer (optional — only needed to run the PHPCS linting described in [Code style](#code-style))
+- [Secure Custom Fields](https://wordpress.org/plugins/secure-custom-fields/) (or ACF Pro) — required for ACF-powered blocks, see [ACF/SCF blocks](#acfscf-blocks)
 
 ## Getting started
 
@@ -35,8 +36,9 @@ All compiled assets are output to `build/`, mirroring the structure of `src/`.
 ## Project structure
 
 ```
+├── acf-json/                  SCF/ACF field group local JSON (source of truth, synced via wp-admin)
 ├── classes/                  Custom PHP classes (e.g. nav menu walker)
-├── inc/                       Theme includes (setup, template tags/functions, blocks, shortcodes, post types, taxonomies, sidebars, theme settings)
+├── inc/                       Theme includes (setup, template tags/functions, blocks, shortcodes, post types, taxonomies, sidebars, theme settings, ACF/SCF)
 ├── src/
 │   ├── admin/                 Admin-only JS/Sass
 │   ├── editor/                Block editor JS/Sass (editor-styles)
@@ -69,6 +71,14 @@ SVGs placed in `src/assets/svg/` are compiled into a single sprite (`build/asset
 Custom blocks live in `src/blocks/<block-name>/` (see `button` and `copyright-date` for examples), each with `block.json`, `edit.js`, `save.js`, `view.js`, `render.php`, and Sass files. `npm run build-block-manifest` generates `src/blocks/blocks-manifest.php`, which is copied to `build/blocks/blocks-manifest.php` and loaded by [inc/blocks.php](inc/blocks.php).
 
 The [`allowed_block_types_all`](functions.php) filter restricts the editor's inserter to every `custom-theme/...` block plus a curated allowlist of pre-defined blocks (`ALLOWED_CORE_BLOCKS` in `functions.php`, currently just `core/heading`). Everything else — remaining core blocks, third-party block plugins — stays hidden until explicitly added to that list.
+
+Each `custom-theme/*` block's own script/style (as declared by block.json's `script`/`style` keys) is deferred by default — see `defer_block_assets()` in [inc/blocks.php](inc/blocks.php). Add a block's name to `NON_DEFERRED_BLOCK_ASSETS` to opt it out (e.g. for above-the-fold blocks where deferring would cause a visible delay/shift).
+
+## ACF/SCF blocks
+
+Blocks can also be powered by [Secure Custom Fields](https://wordpress.org/plugins/secure-custom-fields/) (SCF/ACF) instead of an editor script. They live in `src/blocks/<block-name>/` exactly like any other block — see `hero` for an example — but their `block.json` has an `"acf"` key (`mode`, `blockVersion`, `renderTemplate`) instead of a `script`/`viewScript` pair for the editor UI, and `render.php` reads field values with `get_field()`.
+
+Field groups are defined as local JSON files under `/acf-json`, not registered in PHP — see [inc/acf.php](inc/acf.php), which points SCF's local-JSON load/save paths at that folder. SCF auto-loads field groups from there and auto-saves back to it whenever a field group is edited in wp-admin, so the JSON stays the source of truth in version control. The SCF admin UI (menu, field group editor) is hidden from anyone without `manage_options`, since field groups are meant to be edited by admins and synced via that local JSON rather than edited ad hoc.
 
 ## Styling
 
