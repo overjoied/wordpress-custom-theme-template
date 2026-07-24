@@ -40,14 +40,14 @@ function custom_code_cb() {
  */
 function append_to( $tag ) {
 	$options = get_option( 'theme-settings' );
-	$value   = esc_attr( $options[ $tag ] ?? '' );
+	$value   = $options[ $tag ] ?? '';
 ?>
 	<textarea
 		name="theme-settings[<?php echo esc_attr( $tag ); ?>]"
 		id="theme-settings-<?php echo esc_attr( $tag ); ?>"
 		class="large-text code"
 		rows="3"
-	><?php echo $value; ?></textarea>
+	><?php echo esc_textarea( $value ); ?></textarea>
 <?php
 }
 

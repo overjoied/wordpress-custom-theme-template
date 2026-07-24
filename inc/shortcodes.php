@@ -21,7 +21,7 @@ function button_func( $atts, $content = null, $tag = '' ) {
 	ob_start();
 	?>
 
-	<button><?php echo $atts['text']; ?></button>
+	<button><?php echo esc_html( $atts['text'] ); ?></button>
 
 	<?php
 	return ob_get_clean();

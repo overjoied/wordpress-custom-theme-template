@@ -17,7 +17,7 @@ class Custom_Theme_Walker_Nav_Menu extends Walker_Nav_Menu {
 	 */
 	function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
 		$classes      = ! empty( $item->classes ) ? (array) $item->classes : array();
-		$has_children = in_array( 'menu-item-has-children', $classes );
+		$has_children = in_array( 'menu-item-has-children', $classes, true );
 		$is_cta       = get_post_meta( $item->ID, '_menu_item_is_cta', true );
 
 		// Define class list

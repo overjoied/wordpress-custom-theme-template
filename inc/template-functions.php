@@ -110,6 +110,7 @@ function get_theme_settings() {
  * Append the custom code in the <head>.
  */
 function head_custom_code() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Intentional raw output; only editable by manage_options-capable admins via the Theme Settings page.
 	echo get_theme_settings()['head'] ?? '';
 }
 add_action( 'wp_head', __NAMESPACE__ . '\head_custom_code' );
@@ -118,6 +119,7 @@ add_action( 'wp_head', __NAMESPACE__ . '\head_custom_code' );
  * Append the custom code after the opening <body> tag.
  */
 function body_custom_code() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Intentional raw output; only editable by manage_options-capable admins via the Theme Settings page.
 	echo get_theme_settings()['body'] ?? '';
 }
 add_action( 'wp_body_open', __NAMESPACE__ . '\body_custom_code' );
@@ -126,6 +128,7 @@ add_action( 'wp_body_open', __NAMESPACE__ . '\body_custom_code' );
  * Append the custom code after the <footer>.
  */
 function footer_custom_code() {
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Intentional raw output; only editable by manage_options-capable admins via the Theme Settings page.
 	echo get_theme_settings()['footer'] ?? '';
 }
 add_action( 'wp_footer', __NAMESPACE__ . '\footer_custom_code' );
@@ -136,7 +139,7 @@ add_action( 'wp_footer', __NAMESPACE__ . '\footer_custom_code' );
 function filter_stylesheet( $html, $handle, $href, $media ) {
 	global $deferred_styles;
 
-	if ( in_array( $handle, $deferred_styles ) ) {
+	if ( in_array( $handle, $deferred_styles, true ) ) {
 		$html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
 			. '<noscript>' . $html . '</noscript>';
 	}

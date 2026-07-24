@@ -21,11 +21,11 @@ function add_is_cta_checkbox( $item_id, $menu_item, $depth, $args ) {
 ?>
 
 	<p class="field-cta description description-wide">
-		<label for="edit-menu-item-is-cta-<?php echo $item_id; ?>">
+		<label for="edit-menu-item-is-cta-<?php echo esc_attr( $item_id ); ?>">
 			<input
 				type="checkbox"
-				id="edit-menu-item-is-cta-<?php echo $item_id; ?>"
-				name="menu-item-is-cta[<?php echo $item_id; ?>]"
+				id="edit-menu-item-is-cta-<?php echo esc_attr( $item_id ); ?>"
+				name="menu-item-is-cta[<?php echo esc_attr( $item_id ); ?>]"
 				value="1"
 				<?php checked( $is_cta, '1' ); ?>
 			/>
@@ -44,6 +44,7 @@ add_action( 'wp_nav_menu_item_custom_fields', __NAMESPACE__ . '\add_is_cta_check
  * @param int $menu_item_db_id The ID of the menu item.
  */
 function update_is_cta_meta( $menu_id, $menu_item_db_id ) {
+	// phpcs:ignore WordPress.Security.NonceVerification.Missing -- This hook only fires from WP core's own nav-menu save handler, which already verifies its own nonce before calling it.
 	if ( isset( $_POST['menu-item-is-cta'][ $menu_item_db_id ] ) ) {
 		update_post_meta( $menu_item_db_id, '_menu_item_is_cta', '1' );
 	} else {

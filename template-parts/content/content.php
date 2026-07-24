@@ -9,7 +9,7 @@
  */
 ?>
 
-<article id="post-<?php echo the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php echo esc_attr( get_the_ID() ); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
 		<?php if ( is_singular() ) : ?>
 			<?php get_template_part( 'template-parts/header/entry-header' ); ?>
