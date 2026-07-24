@@ -29,10 +29,10 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 	 *
 	 * @return void
 	 */
-    function custom_theme_setup() {
-        
+	function custom_theme_setup() {
+
 		// Add default posts and comments RSS feed links to head.
-        add_theme_support( 'automatic-feed-links' );
+		add_theme_support( 'automatic-feed-links' );
 
 		/*
 		 * Let WordPress manage the document title.
@@ -49,27 +49,27 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 		add_theme_support( 'post-thumbnails' );
 		set_post_thumbnail_size( 1568, 9999 );
 
-        register_nav_menus(
-            array(
-                'primary' => __( 'Header Menu', TEXT_DOMAIN),
-                'footer'  => __( 'Footer Menu', TEXT_DOMAIN ),
-            ),
-        );
+		register_nav_menus(
+			array(
+				'primary' => __( 'Header Menu', TEXT_DOMAIN),
+				'footer'  => __( 'Footer Menu', TEXT_DOMAIN ),
+			),
+		);
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
 		 */
-        add_theme_support( 'html5', array(
-            'comment-list',
-            'comment-form',
-            'search-form',
-            'gallery',
-            'caption',
-            'style',
-            'script',
-            'navigation-widgets',
-        ));
+		add_theme_support( 'html5', array(
+			'comment-list',
+			'comment-form',
+			'search-form',
+			'gallery',
+			'caption',
+			'style',
+			'script',
+			'navigation-widgets',
+		));
 
 		/*
 		 * Add support for core custom logo.
@@ -94,12 +94,11 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
 		// Add support for editor styles.
-	    add_theme_support( "editor-styles" );
-	    add_editor_style( \CustomTheme\get_build_directory() . "/editor/editor.css" );
+		add_theme_support( "editor-styles" );
+		add_editor_style( \CustomTheme\get_build_directory() . "/editor/editor.css" );
 
-
-        // remove_theme_support( "core-block-patterns" );
-    }
+		// remove_theme_support( "core-block-patterns" );
+	}
 }
 
 add_action('after_setup_theme', 'custom_theme_setup');
@@ -168,15 +167,15 @@ require get_template_directory() . "/inc/theme-settings.php";
  * Restrict Gutenberg blocks.
  */
 function restrict_predefined_blocks( $allowed_block_types ) {
-    // get all enabled blocks
-    $enabled_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
+	// get all enabled blocks
+	$enabled_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
 
-    return array_keys(
-        array_filter(
-            $enabled_blocks,
-            fn( $block ): bool => explode( '/', $block->name )[0] === TEXT_DOMAIN
-        )
-    );
+	return array_keys(
+		array_filter(
+			$enabled_blocks,
+			fn( $block ): bool => explode( '/', $block->name )[0] === TEXT_DOMAIN
+		)
+	);
 }
 add_filter( 'allowed_block_types_all', 'restrict_predefined_blocks', 10, 2 );
 
@@ -208,15 +207,15 @@ add_action( 'wp_enqueue_scripts', 'enqueue_main_assets' );
  * Enqueue layout assets.
  */
 function enqueue_layout_assets() {
-  // Header
+	// Header
 	\CustomTheme\enqueue_assets( 'layout', 'header', false, false, false );
 	
-  // Sidebar
-  if ( \CustomTheme\has_sidebar() ) {
-    \CustomTheme\enqueue_assets( 'layout', 'sidebar' );
-  }
+	// Sidebar
+	if ( \CustomTheme\has_sidebar() ) {
+		\CustomTheme\enqueue_assets( 'layout', 'sidebar' );
+	}
 	
-  // Footer
-  \CustomTheme\enqueue_assets( 'layout', 'footer' );
+	// Footer
+	\CustomTheme\enqueue_assets( 'layout', 'footer' );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_layout_assets' );

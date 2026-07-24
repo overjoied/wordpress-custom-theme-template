@@ -134,13 +134,13 @@ add_action( 'wp_footer', __NAMESPACE__ . '\footer_custom_code' );
  * Filters enqueued stylesheets.
  */
 function filter_stylesheet( $html, $handle, $href, $media ) {
-    global $deferred_styles;
+	global $deferred_styles;
 
-    if ( in_array( $handle, $deferred_styles ) ) {
-        $html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
-            . '<noscript>' . $html . '</noscript>';
-    }
+	if ( in_array( $handle, $deferred_styles ) ) {
+		$html = '<link rel="preload" href="' . $href . '" as="style" id="' . $handle . '" media="' . $media . '" onload="this.onload=null;this.rel=\'stylesheet\'">'
+			. '<noscript>' . $html . '</noscript>';
+	}
 
-    return $html;
+	return $html;
 }
 add_filter('style_loader_tag', __NAMESPACE__ . '\filter_stylesheet', 10, 4);

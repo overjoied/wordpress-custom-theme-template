@@ -10,11 +10,11 @@ get_header();
 ?>
 
 <div>
-  <?php
-    \CustomTheme\custom_theme_posts_loop();
+	<?php
+		\CustomTheme\custom_theme_posts_loop();
 
-    get_sidebar();
-  ?>
+		get_sidebar();
+	?>
 </div>
 
 <?php get_footer(); ?>

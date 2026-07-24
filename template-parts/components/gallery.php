@@ -1,3 +1,3 @@
 <section class="gallery">
-  Gallery
+	Gallery
 </section>
