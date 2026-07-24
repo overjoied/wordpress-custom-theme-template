@@ -20,6 +20,7 @@ if ( have_posts() ) {
 
 	<div class="search-result-count">
 		<?php
+		global $wp_query;
 		printf(
 			esc_html(
 				/* translators: %d: The number of search results. */

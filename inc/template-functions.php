@@ -135,6 +135,12 @@ add_action( 'wp_footer', __NAMESPACE__ . '\footer_custom_code' );
 
 /**
  * Filters enqueued stylesheets.
+ *
+ * @param string $html   HTML markup for the stylesheet link.
+ * @param string $handle Style handle.
+ * @param string $href   Stylesheet URL.
+ * @param string $media  Media attribute.
+ * @return string
  */
 function filter_stylesheet( $html, $handle, $href, $media ) {
 	global $deferred_styles;

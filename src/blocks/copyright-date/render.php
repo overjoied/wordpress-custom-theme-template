@@ -1,4 +1,10 @@
 <?php
+/**
+ * @var array    $attributes Block attributes.
+ * @var string   $content    Block default content.
+ * @var WP_Block $block      Block instance.
+ */
+
 $current_year = date( 'Y' );
 
 // Determine which content to display.

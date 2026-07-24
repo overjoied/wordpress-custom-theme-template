@@ -10,10 +10,10 @@ class Custom_Theme_Walker_Nav_Menu extends Walker_Nav_Menu {
 	 * Starts the element output.
 	 *
 	 * @param string   $output            Used to append additional content (passed by reference).
-	 * @param WP_Post  $data_object       Menu item data object.
+	 * @param WP_Post  $item              Menu item data object.
 	 * @param int      $depth             Depth of menu item. Used for padding.
 	 * @param stdClass $args              An object of wp_nav_menu() arguments.
-	 * @param int      $current_object_id Optional. ID of the current menu item. Default 0.
+	 * @param int      $id                Optional. ID of the current menu item. Default 0.
 	 */
 	function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
 		$classes      = ! empty( $item->classes ) ? (array) $item->classes : array();

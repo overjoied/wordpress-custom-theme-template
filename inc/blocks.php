@@ -68,9 +68,6 @@ add_filter( 'block_categories_all', __NAMESPACE__ . '\add_custom_block_category'
 
 /**
  * Enqueue custom block additional assets.
- *
- * @param string $block_content The normal block HTML that would be sent to the screen.
- * @param array  $block         An array of data about the block, and the way the user configured it.
  */
 function enqueue_custom_block_styles() {
 	if ( is_admin() ) {

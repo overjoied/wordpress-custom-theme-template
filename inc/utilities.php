@@ -74,8 +74,11 @@ function enqueue_assets( $type = 'main', $name = '', $in_footer = true, $defer_c
 /**
  * Checks whether a build file exists, caching the filesystem lookup for the
  * remainder of the request since build output never changes mid-request.
+ *
+ * @param string $file Path to the build file.
+ * @return bool
  */
-function build_file_exists( $file ) {
+function build_file_exists( string $file ): bool {
 	static $cache = array();
 
 	if ( ! array_key_exists( $file, $cache ) ) {
@@ -87,8 +90,15 @@ function build_file_exists( $file ) {
 
 /**
  * Enqueues a script.
+ *
+ * @param string $handle    Script handle.
+ * @param string $path      Path to the build file.
+ * @param array  $depth     Script dependencies.
+ * @param string $version   Version string.
+ * @param bool   $defer     Whether to defer or async the script.
+ * @param bool   $in_footer Whether to print the script in the footer.
  */
-function enqueue_script( $handle, $path, $depth, $version, $defer = true, $in_footer = false ) {
+function enqueue_script( string $handle, string $path, array $depth, string $version, bool $defer = true, bool $in_footer = false ) {
 	if ( build_file_exists( get_build_directory() . "/{$path}.js" ) ) {
 		$src  = get_build_directory_uri() . "/{$path}.js";
 		$args = array(
@@ -102,8 +112,14 @@ function enqueue_script( $handle, $path, $depth, $version, $defer = true, $in_fo
 
 /**
  * Enqueues a CSS stylesheet.
+ *
+ * @param string $handle  Style handle.
+ * @param string $path    Path to the build file.
+ * @param array  $depth   Style dependencies.
+ * @param string $version Version string.
+ * @param string $media   Media attribute.
  */
-function enqueue_style( $handle, $path, $depth, $version, $media = 'all' ) {
+function enqueue_style( string $handle, string $path, array $depth, string $version, string $media = 'all' ) {
 	if ( build_file_exists( get_build_directory() . "/{$path}.css" ) ) {
 		$src = get_build_directory_uri() . "/{$path}.css";
 

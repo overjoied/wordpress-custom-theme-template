@@ -1,7 +1,12 @@
 <?php
+/**
+ * @var array    $attributes Block attributes.
+ * @var string   $content    Block default content.
+ * @var WP_Block $block      Block instance.
+ */
 
-$size = $attributes['size'];
-$text = $attributes['text'];
+$size = isset( $attributes['size'] ) ? $attributes['size'] : '';
+$text = isset( $attributes['text'] ) ? $attributes['text'] : '';
 
 $attr = get_block_wrapper_attributes(
 	array(

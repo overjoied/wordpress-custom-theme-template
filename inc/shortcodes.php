@@ -8,7 +8,16 @@
 
 namespace CustomTheme;
 
-function button_func( $atts, $content = null, $tag = '' ) {
+/**
+ * Button shortcode.
+ *
+ * @param array       $atts    Shortcode attributes.
+ * @param string|null $content Shortcode content.
+ * @param string      $tag     Shortcode tag.
+ *
+ * @return string
+ */
+function button_func( array $atts, $content = null, $tag = '' ) {
 	$atts = shortcode_atts(
 		array(
 			'text' => 'Button',

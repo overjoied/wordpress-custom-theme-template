@@ -11,10 +11,10 @@ namespace CustomTheme;
 /**
  * Appends a checkbox (is_cta) in the current menu item's settings.
  *
- * @param string        $item_id   The ID of the menu item.
- * @param WP_Post       $menu_item The data object of the menu item.
- * @param int           $depth     The depth of the menu item.
- * @param stdClass|null $args      An object of menu item arguments.
+ * @param string         $item_id   The ID of the menu item.
+ * @param \WP_Post      $menu_item The data object of the menu item.
+ * @param int            $depth     The depth of the menu item.
+ * @param \stdClass|null $args      An object of menu item arguments.
  */
 function add_is_cta_checkbox( $item_id, $menu_item, $depth, $args ) {
 	$is_cta = get_post_meta( $item_id, '_menu_item_is_cta', true );
