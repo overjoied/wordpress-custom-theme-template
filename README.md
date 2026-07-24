@@ -47,6 +47,7 @@ All compiled assets are output to `build/`, mirroring the structure of `src/`.
 │   ├── layout/                Header/footer/sidebar assets (TS + Sass)
 │   ├── styles/                 Shared Sass (abstracts, base, layout, utilities, vendors)
 │   ├── assets/                 Static images/SVGs (SVGs are bundled into a sprite)
+│   ├── types/                  Ambient TypeScript declarations (e.g. `*.scss` module shim)
 │   └── main.ts                 Front-end entry point
 ├── template-parts/            Template partials (content, excerpt, header, footer, components)
 ├── templates/                  Block/page templates (front page, home, sidebar layouts)
@@ -54,6 +55,22 @@ All compiled assets are output to `build/`, mirroring the structure of `src/`.
 │   archive.php, search.php, sidebar.php, 404.php   Standard WP template files
 └── style.css                   Theme stylesheet header (name, version, text domain)
 ```
+
+Root-level tooling config, each covered in more detail in its own section below:
+
+| File | Purpose |
+| --- | --- |
+| `composer.json` / `composer.lock` | PHPCS/WPCS dev dependency (see [Code style](#code-style)) |
+| `package.json` / `package-lock.json` | JS build dependencies |
+| `webpack.config.js` | Asset bundling (see [Assets & enqueueing](#assets--enqueueing)) |
+| `postcss.config.js` | Autoprefixer for compiled CSS (see [Styling](#styling)) |
+| `tsconfig.json` | TypeScript compiler options (see [TypeScript](#typescript)) |
+| `phpcs.xml` | WordPress Coding Standards ruleset (see [Code style](#code-style)) |
+| `.env.example` | Template for the local BrowserSync proxy URL (see [Getting started](#getting-started)) |
+| `.editorconfig` | Cross-editor indentation/whitespace rules |
+| `.nvmrc` | Pinned Node version |
+
+`build/`, `node_modules/`, and `vendor/` are generated/installed, not committed (see `.gitignore`).
 
 ## Assets & enqueueing
 
