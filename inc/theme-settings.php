@@ -15,14 +15,12 @@ function theme_settings_cb() {
 ?>
   <div class="wrap">
     <h1>Theme Settings</h1>
-    <form
-      method="post"
-      action="options.php"
-    >
+    <form method="post" action="options.php">
       <?php
+        settings_fields( 'theme-settings' );
         do_settings_sections( 'theme-settings' );
+        submit_button();
       ?>
-      <?php submit_button(); ?>
     </form>
   </div>
 <?php
@@ -35,19 +33,21 @@ function custom_code_cb() {
 <?php
 }
 
-// Output the content for the given field.
-function append_to( $tag = 'footer' ) {
+/**
+ * Output the content for the given field.
+ *
+ * @param string $tag The custom-code field key ('head', 'body', or 'footer').
+ */
+function append_to( $tag ) {
   $options = get_option( 'theme-settings' );
-  $value = esc_attr( $options[ $tag ] ?? '' );
-  
-  settings_fields( 'theme-settings' );
+  $value   = esc_attr( $options[ $tag ] ?? '' );
 ?>
   <textarea
-    name="theme-settings[<?php echo $tag; ?>]"
-    id="theme-settings-<?php echo $tag; ?>"
+    name="theme-settings[<?php echo esc_attr( $tag ); ?>]"
+    id="theme-settings-<?php echo esc_attr( $tag ); ?>"
     class="large-text code"
     rows="3"
-    value="<?php echo $value; ?>"><?php echo $value; ?></textarea>
+  ><?php echo $value; ?></textarea>
 <?php
 }
 
