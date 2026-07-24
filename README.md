@@ -16,7 +16,7 @@ A classic (non-FSE) WordPress theme boilerplate built around Gutenberg blocks, T
    ```bash
    npm install
    ```
-3. Update the BrowserSync proxy URL in [webpack.config.js](webpack.config.js) to match your local site URL (defaults to `http://localhost/wp-block-theme-boilerplate/`).
+3. Copy [.env.example](.env.example) to `.env` and set `WP_PROXY_URL` to your local site URL. `.env` is gitignored, so this stays per-developer.
 4. Activate the theme ("Custom Theme") from the WordPress admin.
 
 ## Development

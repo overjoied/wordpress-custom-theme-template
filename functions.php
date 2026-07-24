@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Block Theme Boilerplate functions and definitions
+ * WP Custom Theme Boilerplate functions and definitions
  *
  * @author Joanne Joie Cabang
  * @package CustomTheme
