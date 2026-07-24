@@ -7,6 +7,7 @@ A classic (non-FSE) WordPress theme boilerplate built around Gutenberg blocks, T
 - Node.js >= 18.12.0 (required by `@wordpress/scripts`) and npm
 - A local WordPress install (this repo is the theme, dropped into `wp-content/themes/`)
 - PHP 8+ (uses typed properties / arrow functions in places)
+- Composer (optional — only needed to run the PHPCS linting described in [Code style](#code-style))
 
 ## Getting started
 
@@ -67,7 +68,7 @@ SVGs placed in `src/assets/svg/` are compiled into a single sprite (`build/asset
 
 Custom blocks live in `src/blocks/<block-name>/` (see `button` and `copyright-date` for examples), each with `block.json`, `edit.js`, `save.js`, `view.js`, `render.php`, and Sass files. `npm run build-block-manifest` generates `src/blocks/blocks-manifest.php`, which is copied to `build/blocks/blocks-manifest.php` and loaded by [inc/blocks.php](inc/blocks.php).
 
-The [`allowed_block_types_all`](functions.php) filter restricts the editor to blocks namespaced under this theme's text domain (`custom-theme/...`) plus WordPress core blocks not filtered out — i.e. third-party block plugins won't appear in the inserter unless added explicitly.
+The [`allowed_block_types_all`](functions.php) filter restricts the editor's inserter to every `custom-theme/...` block plus a curated allowlist of pre-defined blocks (`ALLOWED_CORE_BLOCKS` in `functions.php`, currently just `core/heading`). Everything else — remaining core blocks, third-party block plugins — stays hidden until explicitly added to that list.
 
 ## Styling
 
@@ -84,6 +85,18 @@ Entry point: `src/styles/main.scss`, aliased in Webpack as `@styles` for imports
 ## TypeScript
 
 Front-end and admin scripts are written in TypeScript (`strict` mode, ES6 target, ESNext modules). See [tsconfig.json](tsconfig.json) for compiler options; blocks' editor scripts remain plain JS per Gutenberg conventions.
+
+## Code style
+
+PHP follows [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wpcs/) (tabs, not spaces), enforced via PHP_CodeSniffer:
+
+```bash
+composer install
+composer lint       # phpcs — report violations
+composer lint:fix   # phpcbf — auto-fix what it can
+```
+
+See [phpcs.xml](phpcs.xml) for the ruleset (text domain, minimum supported WP version, and a couple of sniff exclusions documented inline).
 
 ## Theme metadata
 
