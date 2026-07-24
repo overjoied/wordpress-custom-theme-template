@@ -36,6 +36,7 @@ function button_func( array $atts, $content = null, $tag = '' ) {
 	return ob_get_clean();
 }
 
+// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- Documents the shortcode tag, not commented-out code.
 // [button]
 add_shortcode( 'button', __NAMESPACE__ . '\button_func' );
 

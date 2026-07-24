@@ -25,12 +25,12 @@ function get_build_directory() {
 /**
  * Enqueues styles and scripts.
  *
- * @param $type      The type of asset to enqueue.
- * @param $name      Filenames of the assets to enqueue. Applicable only to
- *                   component and layout types.
- * @param $in_footer Whether to print the script in the footer.
- * @param $defer_css Whether to defer the stylesheet.
- * @param $defer_js  Whether to defer the script or load it asynchronously.
+ * @param string $type      The type of asset to enqueue.
+ * @param string $name      Filenames of the assets to enqueue. Applicable only to
+ *                          component and layout types.
+ * @param bool   $in_footer Whether to print the script in the footer.
+ * @param bool   $defer_css Whether to defer the stylesheet.
+ * @param bool   $defer_js  Whether to defer the script or load it asynchronously.
  */
 function enqueue_assets( $type = 'main', $name = '', $in_footer = true, $defer_css = true, $defer_js = true ) {
 	global $deferred_styles;
@@ -42,12 +42,12 @@ function enqueue_assets( $type = 'main', $name = '', $in_footer = true, $defer_c
 	}
 
 	$has_subdir = in_array( $type, array( 'components', 'layout' ), true );
-	$path       = $type === 'main' ? 'main' : ( $has_subdir ? "{$type}/{$name}/{$name}" : "{$type}/{$type}" );
-	$handle     = TEXT_DOMAIN . '-' . $type . ( $has_subdir ? "-{$name}" : '' );
+	$path       = 'main' === $type ? 'main' : ( $has_subdir ? "{$type}/{$name}/{$name}" : "{$type}/{$type}" );
+	$handle     = 'custom-theme-' . $type . ( $has_subdir ? "-{$name}" : '' );
 
-	// Enqueue CSS
+	// Enqueue CSS.
 	// We won't enqueue styles for the editor since it is already added thru add_editor_style().
-	if ( $type !== 'editor' ) {
+	if ( 'editor' !== $type ) {
 		\CustomTheme\enqueue_style(
 			$handle,
 			$path,
@@ -60,7 +60,7 @@ function enqueue_assets( $type = 'main', $name = '', $in_footer = true, $defer_c
 		}
 	}
 
-	// Enqueue JS
+	// Enqueue JS.
 	\CustomTheme\enqueue_script(
 		$handle,
 		$path,

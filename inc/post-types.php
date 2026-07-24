@@ -35,8 +35,9 @@ const CUSTOM_POST_TYPES = array(
  *                        register_post_type() arg may be added/overridden.
  */
 function register_custom_post_type( $slug, $config ) {
+	// phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralText -- Labels are intentionally sourced from the CUSTOM_POST_TYPES config array, so they can't be static string literals; this registry trades static i18n scannability for a single source of truth per post type.
 	if ( isset( $config['description'] ) ) {
-		$config['description'] = __( $config['description'], TEXT_DOMAIN );
+		$config['description'] = __( $config['description'], 'custom-theme' );
 	}
 
 	$args = wp_parse_args(
@@ -58,11 +59,13 @@ function register_custom_post_type( $slug, $config ) {
 		)
 	);
 
-	$args['label']  = __( $config['plural'], TEXT_DOMAIN );
+	$args['label']  = __( $config['plural'], 'custom-theme' );
 	$args['labels'] = array(
-		'name'          => __( $config['plural'], TEXT_DOMAIN ),
-		'singular_name' => __( $config['singular'], TEXT_DOMAIN ),
+		'name'          => __( $config['plural'], 'custom-theme' ),
+		'singular_name' => __( $config['singular'], 'custom-theme' ),
 	);
+
+	// phpcs:enable WordPress.WP.I18n.NonSingularStringLiteralText
 
 	register_post_type( $slug, $args );
 }

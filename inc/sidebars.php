@@ -30,13 +30,17 @@ function get_custom_sidebars() {
 	);
 }
 
+/**
+ * Registers every custom sidebar returned by get_custom_sidebars().
+ */
 function register_custom_sidebars() {
+	// phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralText -- Labels are intentionally sourced from get_custom_sidebars(), so they can't be static string literals.
 	foreach ( get_custom_sidebars() as $sidebar ) {
 		register_sidebar(
 			array(
-				'name'          => __( $sidebar['name'], TEXT_DOMAIN ),
+				'name'          => __( $sidebar['name'], 'custom-theme' ),
 				'id'            => $sidebar['id'],
-				'description'   => __( 'Widgets in this area will appear in ' . $sidebar['name'] . '.', TEXT_DOMAIN ),
+				'description'   => __( 'Widgets in this area will appear in ' . $sidebar['name'] . '.', 'custom-theme' ),
 				'before_widget' => '<div id="%1$s" class="widget %2$s">',
 				'after_widget'  => '</div>',
 				'before_title'  => '<h2 class="widget-title">',
@@ -44,5 +48,6 @@ function register_custom_sidebars() {
 			)
 		);
 	}
+	// phpcs:enable WordPress.WP.I18n.NonSingularStringLiteralText
 }
 add_action( 'widgets_init', __NAMESPACE__ . '\register_custom_sidebars' );

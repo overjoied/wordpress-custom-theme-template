@@ -53,11 +53,14 @@ add_action( 'init', __NAMESPACE__ . '\register_blocks' );
 
 /**
  * Defines a custom blocks' editor category.
+ *
+ * @param array $categories Registered block categories.
+ * @param mixed $post       Not used; required by the block_categories_all filter signature.
  */
-function add_custom_block_category( $categories, $post ) {
+function add_custom_block_category( $categories, $post ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Required by the block_categories_all filter signature.
 	$custom_category = array(
 		'slug'  => 'custom',
-		'title' => __( 'Custom', 'wp-block-theme-boilerplate' ),
+		'title' => __( 'Custom', 'custom-theme' ),
 	);
 
 	$categories = array_merge( $categories, array( $custom_category ) );
@@ -77,10 +80,11 @@ function enqueue_custom_block_styles() {
 	$blocks = array_keys(
 		array_filter(
 			\WP_Block_Type_Registry::get_instance()->get_all_registered(),
-			fn( $block ): bool => explode( '/', $block->name )[0] === TEXT_DOMAIN
+			fn( $block ): bool => 'custom-theme' === explode( '/', $block->name )[0]
 		)
 	);
 
+	// phpcs:disable Generic.CodeAnalysis.EmptyStatement.DetectedIf, Squiz.Commenting.InlineComment.InvalidEndChar -- Intentionally empty; kept as a documented extension point showing how to conditionally enqueue per-block component assets.
 	foreach ( $blocks as $block_name ) {
 		if ( page_has_block( $block_name ) ) {
 
@@ -90,6 +94,7 @@ function enqueue_custom_block_styles() {
 			// }
 		}
 	}
+	// phpcs:enable Generic.CodeAnalysis.EmptyStatement.DetectedIf, Squiz.Commenting.InlineComment.InvalidEndChar
 }
 add_action( 'enqueue_block_assets', __NAMESPACE__ . '\enqueue_custom_block_styles', 10, 2 );
 

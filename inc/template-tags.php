@@ -24,7 +24,7 @@ if ( ! function_exists( 'custom_theme_posted_on' ) ) {
 		echo '<span class="posted-on">';
 		printf(
 			/* translators: %s: Publish date. */
-			esc_html__( 'Published %s', TEXT_DOMAIN ),
+			esc_html__( 'Published %s', 'custom-theme' ),
 			$time_string // phpcs:ignore WordPress.Security.EscapeOutput
 		);
 		echo '</span>';
@@ -42,7 +42,7 @@ if ( ! function_exists( 'custom_theme_posted_by' ) ) {
 			echo '<span class="byline">';
 			printf(
 				/* translators: %s: Author name. */
-				esc_html__( 'By %s', TEXT_DOMAIN ),
+				esc_html__( 'By %s', 'custom-theme' ),
 				'<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '" rel="author">' . esc_html( get_the_author() ) . '</a>'
 			);
 			echo '</span>';
@@ -68,7 +68,7 @@ if ( ! function_exists( 'custom_theme_entry_meta_footer' ) ) {
 		if ( ! is_single() ) {
 
 			if ( is_sticky() ) {
-				echo '<p>' . esc_html_x( 'Featured post', 'Label for sticky posts', TEXT_DOMAIN ) . '</p>';
+				echo '<p>' . esc_html_x( 'Featured post', 'Label for sticky posts', 'custom-theme' ) . '</p>';
 			}
 
 			$post_format = get_post_format();
@@ -83,7 +83,7 @@ if ( ! function_exists( 'custom_theme_entry_meta_footer' ) ) {
 			edit_post_link(
 				sprintf(
 					/* translators: %s: Post title. Only visible to screen readers. */
-					esc_html__( 'Edit %s', TEXT_DOMAIN ),
+					esc_html__( 'Edit %s', 'custom-theme' ),
 					'<span class="screen-reader-text">' . get_the_title() . '</span>'
 				),
 				'<span class="edit-link">',
@@ -100,7 +100,7 @@ if ( ! function_exists( 'custom_theme_entry_meta_footer' ) ) {
 			edit_post_link(
 				sprintf(
 					/* translators: %s: Post title. Only visible to screen readers. */
-					esc_html__( 'Edit %s', TEXT_DOMAIN ),
+					esc_html__( 'Edit %s', 'custom-theme' ),
 					'<span class="screen-reader-text">' . get_the_title() . '</span>'
 				),
 				'<span class="edit-link">',
@@ -117,7 +117,7 @@ if ( ! function_exists( 'custom_theme_entry_meta_footer' ) ) {
 			if ( $categories_list ) {
 				printf(
 					/* translators: %s: List of categories. */
-					'<span class="cat-links">' . esc_html__( 'Categorized as %s', TEXT_DOMAIN ) . ' </span>',
+					'<span class="cat-links">' . esc_html__( 'Categorized as %s', 'custom-theme' ) . ' </span>',
 					$categories_list // phpcs:ignore WordPress.Security.EscapeOutput
 				);
 			}
@@ -126,7 +126,7 @@ if ( ! function_exists( 'custom_theme_entry_meta_footer' ) ) {
 			if ( $tags_list && ! is_wp_error( $tags_list ) ) {
 				printf(
 					/* translators: %s: List of tags. */
-					'<span class="tags-links">' . esc_html__( 'Tagged %s', TEXT_DOMAIN ) . '</span>',
+					'<span class="tags-links">' . esc_html__( 'Tagged %s', 'custom-theme' ) . '</span>',
 					$tags_list // phpcs:ignore WordPress.Security.EscapeOutput
 				);
 			}
@@ -153,10 +153,10 @@ if ( ! function_exists( 'custom_theme_link_pages' ) ) {
 	function custom_theme_link_pages() {
 		wp_link_pages(
 			array(
-				'before'   => '<nav class="page-links" aria-label="' . esc_attr__( 'Page', TEXT_DOMAIN ) . '">',
+				'before'   => '<nav class="page-links" aria-label="' . esc_attr__( 'Page', 'custom-theme' ) . '">',
 				'after'    => '</nav>',
 				/* translators: %: Page number. */
-				'pagelink' => esc_html__( 'Page %', TEXT_DOMAIN ),
+				'pagelink' => esc_html__( 'Page %', 'custom-theme' ),
 			)
 		);
 	}
@@ -195,7 +195,7 @@ if ( ! function_exists( 'custom_theme_search_results_title' ) ) {
 	function custom_theme_search_results_title() {
 		printf(
 			/* translators: %s: Search term. */
-			esc_html__( 'Results for "%s"', TEXT_DOMAIN ),
+			esc_html__( 'Results for "%s"', 'custom-theme' ),
 			'<span class="page-description search-term">' . esc_html( get_search_query() ) . '</span>'
 		);
 	}

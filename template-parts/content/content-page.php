@@ -7,6 +7,7 @@
  * @author Joanne Joie Cabang
  * @package CustomTheme
  */
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -36,7 +37,7 @@
 			edit_post_link(
 				sprintf(
 					/* translators: %s: Post title. Only visible to screen readers. */
-					esc_html__( 'Edit %s', TEXT_DOMAIN ),
+					esc_html__( 'Edit %s', 'custom-theme' ),
 					'<span class="screen-reader-text">' . get_the_title() . '</span>'
 				),
 				'<span class="edit-link">',

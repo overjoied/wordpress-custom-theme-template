@@ -10,7 +10,9 @@
 
 namespace CustomTheme;
 
-// Output the content for the Theme Settings page.
+/**
+ * Output the content for the Theme Settings page.
+ */
 function theme_settings_cb() {
 ?>
 	<div class="wrap">
@@ -26,7 +28,9 @@ function theme_settings_cb() {
 <?php
 }
 
-// Output the content for the Custom Code section.
+/**
+ * Output the content for the Custom Code section.
+ */
 function custom_code_cb() {
 ?>
 	<p>Declare your custom codes here.</p>
@@ -57,8 +61,8 @@ function append_to( $tag ) {
 function register_theme_settings() {
 	// Add the Theme Settings page as a top-level menu.
 	add_menu_page(
-		__( 'Theme Settings', TEXT_DOMAIN ),
-		__( 'Theme Settings', TEXT_DOMAIN ),
+		__( 'Theme Settings', 'custom-theme' ),
+		__( 'Theme Settings', 'custom-theme' ),
 		'manage_options',
 		'theme-settings',
 		__NAMESPACE__ . '\theme_settings_cb',
@@ -73,7 +77,7 @@ function register_theme_settings() {
 	// Add 'Custom Code' section in the Theme Settings page.
 	add_settings_section(
 		'custom-code',
-		__( 'Custom Code', TEXT_DOMAIN ),
+		__( 'Custom Code', 'custom-theme' ),
 		__NAMESPACE__ . '\custom_code_cb',
 		'theme-settings',
 	);
@@ -84,15 +88,17 @@ function register_theme_settings() {
 		'footer',
 	);
 
+	// phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralText -- The settings-field label is built from the field key by design.
 	// Add fields in the 'Custom Code' section.
 	foreach ( $custom_code_fields as $field ) {
 		add_settings_field(
 			'append-to-' . $field,
-			__( 'Append to ' . ucfirst( $field ), TEXT_DOMAIN ),
+			__( 'Append to ' . ucfirst( $field ), 'custom-theme' ),
 			fn() => \CustomTheme\append_to( $field ),
 			'theme-settings',
 			'custom-code',
 		);
 	}
+	// phpcs:enable WordPress.WP.I18n.NonSingularStringLiteralText
 }
 add_action( 'admin_menu', __NAMESPACE__ . '\register_theme_settings' );

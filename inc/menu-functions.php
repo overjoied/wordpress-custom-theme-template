@@ -12,11 +12,11 @@ namespace CustomTheme;
  * Appends a checkbox (is_cta) in the current menu item's settings.
  *
  * @param string         $item_id   The ID of the menu item.
- * @param \WP_Post      $menu_item The data object of the menu item.
+ * @param \WP_Post       $menu_item The data object of the menu item.
  * @param int            $depth     The depth of the menu item.
  * @param \stdClass|null $args      An object of menu item arguments.
  */
-function add_is_cta_checkbox( $item_id, $menu_item, $depth, $args ) {
+function add_is_cta_checkbox( $item_id, $menu_item, $depth, $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- Required by the wp_nav_menu_item_custom_fields filter signature.
 	$is_cta = get_post_meta( $item_id, '_menu_item_is_cta', true );
 ?>
 
@@ -29,7 +29,7 @@ function add_is_cta_checkbox( $item_id, $menu_item, $depth, $args ) {
 				value="1"
 				<?php checked( $is_cta, '1' ); ?>
 			/>
-			<?php esc_html_e( 'Make this a CTA button', TEXT_DOMAIN ); ?>
+			<?php esc_html_e( 'Make this a CTA button', 'custom-theme' ); ?>
 		</label>
 	</p>
 

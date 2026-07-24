@@ -1,11 +1,15 @@
 <?php
 /**
+ * Renders the copyright-date block.
+ *
+ * @package CustomTheme
+ *
  * @var array    $attributes Block attributes.
  * @var string   $content    Block default content.
  * @var WP_Block $block      Block instance.
  */
 
-$current_year = date( 'Y' );
+$current_year = gmdate( 'Y' );
 
 // Determine which content to display.
 if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrentYear'] === $current_year ) {

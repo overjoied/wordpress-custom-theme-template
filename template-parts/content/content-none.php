@@ -7,6 +7,7 @@
  * @author Joanne Joie Cabang
  * @package CustomTheme
  */
+
 ?>
 
 <section class="no-results not-found">
@@ -19,7 +20,7 @@
 
 		<?php else : ?>
 
-			<h1 class="page-title"><?php esc_html_e( 'Nothing here', TEXT_DOMAIN ); ?></h1>
+			<h1 class="page-title"><?php esc_html_e( 'Nothing here', 'custom-theme' ); ?></h1>
 
 		<?php endif; ?>
 	</header><!-- .page-header -->
@@ -32,7 +33,7 @@
 			printf(
 				'<p>' . wp_kses(
 					/* translators: %s: Link to WP admin new post page. */
-					__( 'Ready to publish your first post? <a href="%s">Get started here</a>.', TEXT_DOMAIN ),
+					__( 'Ready to publish your first post? <a href="%s">Get started here</a>.', 'custom-theme' ),
 					array(
 						'a' => array(
 							'href' => array(),
@@ -45,12 +46,12 @@
 
 		<?php elseif ( is_search() ) : ?>
 
-			<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', TEXT_DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'custom-theme' ); ?></p>
 			<?php get_search_form(); ?>
 
 		<?php else : ?>
 
-			<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', TEXT_DOMAIN ); ?></p>
+			<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'custom-theme' ); ?></p>
 			<?php get_search_form(); ?>
 
 		<?php endif; ?>

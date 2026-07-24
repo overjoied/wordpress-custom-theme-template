@@ -2,9 +2,13 @@
 /**
  * Custom Walker for Navigation Menu
  *
+ * @author Joanne Joie Cabang
  * @package CustomTheme
  */
 
+/**
+ * Custom walker for wp_nav_menu(), used to add CTA-button styling hooks to menu items.
+ */
 class Custom_Theme_Walker_Nav_Menu extends Walker_Nav_Menu {
 	/**
 	 * Starts the element output.
@@ -15,12 +19,12 @@ class Custom_Theme_Walker_Nav_Menu extends Walker_Nav_Menu {
 	 * @param stdClass $args              An object of wp_nav_menu() arguments.
 	 * @param int      $id                Optional. ID of the current menu item. Default 0.
 	 */
-	function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+	public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
 		$classes      = ! empty( $item->classes ) ? (array) $item->classes : array();
 		$has_children = in_array( 'menu-item-has-children', $classes, true );
 		$is_cta       = get_post_meta( $item->ID, '_menu_item_is_cta', true );
 
-		// Define class list
+		// Define class list.
 		$li_classes = array( 'menu-item' );
 		if ( $has_children ) {
 			$li_classes[] = 'menu-item--is-dropdown';
@@ -29,7 +33,7 @@ class Custom_Theme_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$li_classes[] = 'menu-item--is-cta';
 		}
 
-		// Open list item
+		// Open list item.
 		$output .= '<li class="' . esc_attr( implode( ' ', $li_classes ) ) . '">';
 
 		// Menu link
@@ -42,7 +46,7 @@ class Custom_Theme_Walker_Nav_Menu extends Walker_Nav_Menu {
 			$output .= '<span class="menu-item__sub-menu-toggler" aria-expanded="false">';
 			$output .= \CustomTheme\get_icon( 'arrow-right' );
 			/* translators: Hidden accessibility text. */
-			$output .= '<span class="screen-reader-text">' . esc_html__( 'Open menu', TEXT_DOMAIN ) . '</span>';
+			$output .= '<span class="screen-reader-text">' . esc_html__( 'Open menu', 'custom-theme' ) . '</span>';
 			$output .= '</span>';
 		}
 

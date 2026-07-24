@@ -1,5 +1,9 @@
 <?php
 /**
+ * Renders the button block.
+ *
+ * @package CustomTheme
+ *
  * @var array    $attributes Block attributes.
  * @var string   $content    Block default content.
  * @var WP_Block $block      Block instance.

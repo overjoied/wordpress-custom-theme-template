@@ -11,11 +11,6 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '1.0.0' );
 }
 
-if ( ! defined( 'TEXT_DOMAIN' ) ) {
-	// Replace the version number of the theme on each release.
-	define( 'TEXT_DOMAIN', 'custom-theme' );
-}
-
 global $deferred_styles;
 $deferred_styles = array();
 
@@ -51,8 +46,8 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 
 		register_nav_menus(
 			array(
-				'primary' => __( 'Header Menu', TEXT_DOMAIN ),
-				'footer'  => __( 'Footer Menu', TEXT_DOMAIN ),
+				'primary' => __( 'Header Menu', 'custom-theme' ),
+				'footer'  => __( 'Footer Menu', 'custom-theme' ),
 			),
 		);
 
@@ -100,6 +95,7 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 		add_theme_support( 'editor-styles' );
 		add_editor_style( \CustomTheme\get_build_directory() . '/editor/editor.css' );
 
+		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar, Squiz.PHP.CommentedOutCode.Found -- Intentionally commented-out code, kept as a reference for how to disable core block patterns.
 		// remove_theme_support( "core-block-patterns" );
 	}
 }
@@ -159,6 +155,7 @@ require get_template_directory() . '/inc/sidebars.php';
 /**
  * Load image sizes.
  */
+// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar, Squiz.PHP.CommentedOutCode.Found -- Intentionally commented-out code, kept as a reference for how to load the image-sizes include.
 // require get_template_directory() . "/inc/image-sizes.php";
 
 /**
@@ -167,16 +164,24 @@ require get_template_directory() . '/inc/sidebars.php';
 require get_template_directory() . '/inc/theme-settings.php';
 
 /**
+ * Pre-defined (core) Gutenberg blocks allowed in the editor alongside every
+ * custom-theme/* block. Add a block's registered name here to opt it in.
+ */
+const ALLOWED_CORE_BLOCKS = array(
+	'core/heading',
+);
+
+/**
  * Restrict Gutenberg blocks.
  */
-function restrict_predefined_blocks( $allowed_block_types ) {
-	// get all enabled blocks
+function restrict_predefined_blocks() {
+	// Get all enabled blocks.
 	$enabled_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
 
 	return array_keys(
 		array_filter(
 			$enabled_blocks,
-			fn( $block ): bool => explode( '/', $block->name )[0] === TEXT_DOMAIN
+			fn( $block ): bool => 'custom-theme' === explode( '/', $block->name )[0] || in_array( $block->name, ALLOWED_CORE_BLOCKS, true )
 		)
 	);
 }
@@ -210,15 +215,15 @@ add_action( 'wp_enqueue_scripts', 'enqueue_main_assets' );
  * Enqueue layout assets.
  */
 function enqueue_layout_assets() {
-	// Header
+	// Header.
 	\CustomTheme\enqueue_assets( 'layout', 'header', false, false, false );
 
-	// Sidebar
+	// Sidebar.
 	if ( \CustomTheme\has_sidebar() ) {
 		\CustomTheme\enqueue_assets( 'layout', 'sidebar' );
 	}
 
-	// Footer
+	// Footer.
 	\CustomTheme\enqueue_assets( 'layout', 'footer' );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_layout_assets' );

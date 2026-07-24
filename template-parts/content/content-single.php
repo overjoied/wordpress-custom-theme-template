@@ -7,6 +7,7 @@
  * @author Joanne Joie Cabang
  * @package CustomTheme
  */
+
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

@@ -10,25 +10,28 @@
 
 namespace CustomTheme;
 
+/**
+ * Registers the 'breed' taxonomy for the 'cat' post type.
+ */
 function register_cat_breed() {
 
 	$labels = array(
-		'name'              => _x( 'Breeds', 'Taxonomy General Name', TEXT_DOMAIN ),
-		'singular_name'     => _x( 'Breed', 'Taxonomy Singular Name', TEXT_DOMAIN ),
-		'search_items'      => __( 'Search Breeds', TEXT_DOMAIN ),
-		'popular_items'     => __( 'Popular Breeds', TEXT_DOMAIN ),
-		'all_items'         => __( 'All Breeds', TEXT_DOMAIN ),
+		'name'              => _x( 'Breeds', 'Taxonomy General Name', 'custom-theme' ),
+		'singular_name'     => _x( 'Breed', 'Taxonomy Singular Name', 'custom-theme' ),
+		'search_items'      => __( 'Search Breeds', 'custom-theme' ),
+		'popular_items'     => __( 'Popular Breeds', 'custom-theme' ),
+		'all_items'         => __( 'All Breeds', 'custom-theme' ),
 		'parent_item'       => null,
 		'parent_item_colon' => null,
-		'edit_item'         => __( 'Edit Breed', TEXT_DOMAIN ),
-		'view_item'         => __( 'View Breed', TEXT_DOMAIN ),
-		'update_item'       => __( 'Update Breed', TEXT_DOMAIN ),
-		'add_new_item'      => __( 'Add Breed', TEXT_DOMAIN ),
-		'new_item_name'     => __( 'New Breed Name', TEXT_DOMAIN ),
-		'not_found'         => __( 'No breeds found', TEXT_DOMAIN ),
-		'no_terms'          => __( 'No breeds', TEXT_DOMAIN ),
-		'filter_by_item'    => __( 'Filter by breed', TEXT_DOMAIN ),
-		'item_link'         => __( 'Breed Link', TEXT_DOMAIN ),
+		'edit_item'         => __( 'Edit Breed', 'custom-theme' ),
+		'view_item'         => __( 'View Breed', 'custom-theme' ),
+		'update_item'       => __( 'Update Breed', 'custom-theme' ),
+		'add_new_item'      => __( 'Add Breed', 'custom-theme' ),
+		'new_item_name'     => __( 'New Breed Name', 'custom-theme' ),
+		'not_found'         => __( 'No breeds found', 'custom-theme' ),
+		'no_terms'          => __( 'No breeds', 'custom-theme' ),
+		'filter_by_item'    => __( 'Filter by breed', 'custom-theme' ),
+		'item_link'         => __( 'Breed Link', 'custom-theme' ),
 	);
 
 	$args = array(
@@ -49,6 +52,9 @@ function register_cat_breed() {
 	register_taxonomy( 'breed', 'cat', $args );
 }
 
+/**
+ * Registers every custom taxonomy.
+ */
 function register_custom_taxonomies() {
 	register_cat_breed();
 }

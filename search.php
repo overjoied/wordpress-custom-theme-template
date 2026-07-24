@@ -28,7 +28,7 @@ if ( have_posts() ) {
 					'We found %d result for your search.',
 					'We found %d results for your search.',
 					(int) $wp_query->found_posts,
-					TEXT_DOMAIN
+					'custom-theme'
 				)
 			),
 			(int) $wp_query->found_posts
