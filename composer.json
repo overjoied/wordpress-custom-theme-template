@@ -1,0 +1,26 @@
+{
+    "name": "custom-theme/wordpress-custom-theme-template",
+    "description": "A classic WordPress theme boilerplate",
+    "type": "wordpress-theme",
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^3.0",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
+    },
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Joanne Joie Cabang",
+            "email": "dev.joannejoie.cabang@gmail.com"
+        }
+    ],
+    "require": {},
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf"
+    }
+}

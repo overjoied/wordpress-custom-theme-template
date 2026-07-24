@@ -8,22 +8,35 @@
 
 namespace CustomTheme;
 
-function button_func( $atts, $content = null, $tag = '' ) {
-  $atts = shortcode_atts( array(
-    'text' => 'Button',
-  ), $atts );
+/**
+ * Button shortcode.
+ *
+ * @param array       $atts    Shortcode attributes.
+ * @param string|null $content Shortcode content.
+ * @param string      $tag     Shortcode tag.
+ *
+ * @return string
+ */
+function button_func( array $atts, $content = null, $tag = '' ) {
+	$atts = shortcode_atts(
+		array(
+			'text' => 'Button',
+		),
+		$atts
+	);
 
-  \CustomTheme\enqueue_assets( 'components', $tag );
+	\CustomTheme\enqueue_assets( 'components', $tag );
 
-  ob_start();
-  ?>
+	ob_start();
+	?>
 
-  <button><?php echo $atts['text']; ?></button>
+	<button><?php echo esc_html( $atts['text'] ); ?></button>
 
-  <?php
-  return ob_get_clean();
+	<?php
+	return ob_get_clean();
 }
 
+// phpcs:ignore Squiz.PHP.CommentedOutCode.Found -- Documents the shortcode tag, not commented-out code.
 // [button]
 add_shortcode( 'button', __NAMESPACE__ . '\button_func' );
 

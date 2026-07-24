@@ -1,6 +1,6 @@
 <?php
 /**
- * WP Block Theme Boilerplate functions and definitions
+ * WP Custom Theme Boilerplate functions and definitions
  *
  * @author Joanne Joie Cabang
  * @package CustomTheme
@@ -11,13 +11,8 @@ if ( ! defined( '_S_VERSION' ) ) {
 	define( '_S_VERSION', '1.0.0' );
 }
 
-if ( ! defined( 'TEXT_DOMAIN' ) ) {
-	// Replace the version number of the theme on each release.
-	define( 'TEXT_DOMAIN', 'custom-theme' );
-}
-
 global $deferred_styles;
-$deferred_styles = [];
+$deferred_styles = array();
 
 if ( ! function_exists( 'custom_theme_setup' ) ) {
 	/**
@@ -29,10 +24,10 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 	 *
 	 * @return void
 	 */
-    function custom_theme_setup() {
-        
+	function custom_theme_setup() {
+
 		// Add default posts and comments RSS feed links to head.
-        add_theme_support( 'automatic-feed-links' );
+		add_theme_support( 'automatic-feed-links' );
 
 		/*
 		 * Let WordPress manage the document title.
@@ -49,27 +44,30 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 		add_theme_support( 'post-thumbnails' );
 		set_post_thumbnail_size( 1568, 9999 );
 
-        register_nav_menus(
-            array(
-                'primary' => __( 'Header Menu', TEXT_DOMAIN),
-                'footer'  => __( 'Footer Menu', TEXT_DOMAIN ),
-            ),
-        );
+		register_nav_menus(
+			array(
+				'primary' => __( 'Header Menu', 'custom-theme' ),
+				'footer'  => __( 'Footer Menu', 'custom-theme' ),
+			),
+		);
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
 		 */
-        add_theme_support( 'html5', array(
-            'comment-list',
-            'comment-form',
-            'search-form',
-            'gallery',
-            'caption',
-            'style',
-            'script',
-            'navigation-widgets',
-        ));
+		add_theme_support(
+			'html5',
+			array(
+				'comment-list',
+				'comment-form',
+				'search-form',
+				'gallery',
+				'caption',
+				'style',
+				'script',
+				'navigation-widgets',
+			)
+		);
 
 		/*
 		 * Add support for core custom logo.
@@ -94,75 +92,84 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
 		// Add support for editor styles.
-	    add_theme_support( "editor-styles" );
-	    add_editor_style( \CustomTheme\get_build_directory() . "/editor/editor.css" );
+		add_theme_support( 'editor-styles' );
+		add_editor_style( \CustomTheme\get_build_directory() . '/editor/editor.css' );
 
-
-        // remove_theme_support( "core-block-patterns" );
-    }
+		// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar, Squiz.PHP.CommentedOutCode.Found -- Intentionally commented-out code, kept as a reference for how to disable core block patterns.
+		// remove_theme_support( "core-block-patterns" );
+	}
 }
 
-add_action('after_setup_theme', 'custom_theme_setup');
+add_action( 'after_setup_theme', 'custom_theme_setup' );
 
 /**
  * Load Custom_Theme_Walker_Nav_Menu class.
  */
-require get_template_directory() . "/classes/class-custom-theme-walker-nav-menu.php";
+require get_template_directory() . '/classes/class-custom-theme-walker-nav-menu.php';
 
 /**
  * Load utilities.
  */
-require get_template_directory() . "/inc/utilities.php";
+require get_template_directory() . '/inc/utilities.php';
 
 /**
  * Load template functions.
  */
-require get_template_directory() . "/inc/template-functions.php";
+require get_template_directory() . '/inc/template-functions.php';
 
 /**
  * Load template tags.
  */
-require get_template_directory() . "/inc/template-tags.php";
+require get_template_directory() . '/inc/template-tags.php';
 
 /**
  * Load menu functions.
  */
-require get_template_directory() . "/inc/menu-functions.php";
+require get_template_directory() . '/inc/menu-functions.php';
 
 /**
  * Load custom blocks.
  */
-require get_template_directory() . "/inc/blocks.php";
+require get_template_directory() . '/inc/blocks.php';
 
 /**
  * Load shortcodes.
  */
-require get_template_directory() . "/inc/shortcodes.php";
+require get_template_directory() . '/inc/shortcodes.php';
 
 /**
  * Load custom post types.
  */
-require get_template_directory() . "/inc/post-types.php";
+require get_template_directory() . '/inc/post-types.php';
 
 /**
  * Load custom taxonomies.
  */
-require get_template_directory() . "/inc/taxonomies.php";
+require get_template_directory() . '/inc/taxonomies.php';
 
 /**
  * Load custom sidebars.
  */
-require get_template_directory() . "/inc/sidebars.php";
+require get_template_directory() . '/inc/sidebars.php';
 
 /**
  * Load image sizes.
  */
+// phpcs:ignore Squiz.Commenting.InlineComment.InvalidEndChar, Squiz.PHP.CommentedOutCode.Found -- Intentionally commented-out code, kept as a reference for how to load the image-sizes include.
 // require get_template_directory() . "/inc/image-sizes.php";
 
 /**
  * Register Theme Settings.
  */
-require get_template_directory() . "/inc/theme-settings.php";
+require get_template_directory() . '/inc/theme-settings.php';
+
+/**
+ * Pre-defined (core) Gutenberg blocks allowed in the editor alongside every
+ * custom-theme/* block. Add a block's registered name here to opt it in.
+ */
+const ALLOWED_CORE_BLOCKS = array(
+	'core/heading',
+);
 
 /**
  * Register SCF field groups and block-editor overrides.
@@ -172,16 +179,16 @@ require get_template_directory() . "/inc/acf.php";
 /**
  * Restrict Gutenberg blocks.
  */
-function restrict_predefined_blocks( $allowed_block_types ) {
-    // get all enabled blocks
-    $enabled_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
+function restrict_predefined_blocks() {
+	// Get all enabled blocks.
+	$enabled_blocks = WP_Block_Type_Registry::get_instance()->get_all_registered();
 
-    return array_keys(
-        array_filter(
-            $enabled_blocks,
-            fn( $block ): bool => explode( '/', $block->name )[0] === TEXT_DOMAIN
-        )
-    );
+	return array_keys(
+		array_filter(
+			$enabled_blocks,
+			fn( $block ): bool => 'custom-theme' === explode( '/', $block->name )[0] || in_array( $block->name, ALLOWED_CORE_BLOCKS, true )
+		)
+	);
 }
 add_filter( 'allowed_block_types_all', 'restrict_predefined_blocks', 10, 2 );
 
@@ -205,7 +212,7 @@ add_action( 'wp_enqueue_editor', 'enqueue_editor_assets' );
  * Enqueue main assets.
  */
 function enqueue_main_assets() {
-	\CustomTheme\enqueue_assets( 'main', '', false, false, false);
+	\CustomTheme\enqueue_assets( 'main', '', false, false, false );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_main_assets' );
 
@@ -213,15 +220,15 @@ add_action( 'wp_enqueue_scripts', 'enqueue_main_assets' );
  * Enqueue layout assets.
  */
 function enqueue_layout_assets() {
-  // Header
+	// Header.
 	\CustomTheme\enqueue_assets( 'layout', 'header', false, false, false );
-	
-  // Sidebar
-  if ( \CustomTheme\has_sidebar() ) {
-    \CustomTheme\enqueue_assets( 'layout', 'sidebar' );
-  }
-	
-  // Footer
-  \CustomTheme\enqueue_assets( 'layout', 'footer' );
+
+	// Sidebar.
+	if ( \CustomTheme\has_sidebar() ) {
+		\CustomTheme\enqueue_assets( 'layout', 'sidebar' );
+	}
+
+	// Footer.
+	\CustomTheme\enqueue_assets( 'layout', 'footer' );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_layout_assets' );

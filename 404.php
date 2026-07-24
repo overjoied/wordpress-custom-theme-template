@@ -12,8 +12,8 @@ get_header();
 ?>
 
 <div class="error-404 not-found">
-    <p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try a search?', TEXT_DOMAIN ); ?></p>
-    <?php get_search_form(); ?>
+	<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try a search?', 'custom-theme' ); ?></p>
+	<?php get_search_form(); ?>
 </div><!-- .error-404 -->
 
 <?php get_footer(); ?>

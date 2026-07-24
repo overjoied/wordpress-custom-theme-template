@@ -18,13 +18,13 @@ namespace CustomTheme;
  * the defaults below need to be listed here.
  */
 const CUSTOM_POST_TYPES = array(
-  'cat' => array(
-    'singular'    => 'Cat',
-    'plural'      => 'Cats',
-    'description' => 'A collection of cats.',
-    'menu_icon'   => 'dashicons-schedule',
-    'menu_position' => 5,
-  ),
+	'cat' => array(
+		'singular'      => 'Cat',
+		'plural'        => 'Cats',
+		'description'   => 'A collection of cats.',
+		'menu_icon'     => 'dashicons-schedule',
+		'menu_position' => 5,
+	),
 );
 
 /**
@@ -35,44 +35,47 @@ const CUSTOM_POST_TYPES = array(
  *                        register_post_type() arg may be added/overridden.
  */
 function register_custom_post_type( $slug, $config ) {
-  if ( isset( $config['description'] ) ) {
-    $config['description'] = __( $config['description'], TEXT_DOMAIN );
-  }
+	// phpcs:disable WordPress.WP.I18n.NonSingularStringLiteralText -- Labels are intentionally sourced from the CUSTOM_POST_TYPES config array, so they can't be static string literals; this registry trades static i18n scannability for a single source of truth per post type.
+	if ( isset( $config['description'] ) ) {
+		$config['description'] = __( $config['description'], 'custom-theme' );
+	}
 
-  $args = wp_parse_args(
-    array_diff_key( $config, array_flip( array( 'singular', 'plural' ) ) ),
-    array(
-      'public'              => false,
-      'hierarchical'        => false,
-      'exclude_from_search' => true,
-      'publicly_queryable'  => false,
-      'show_ui'             => true,
-      'show_in_menu'        => true,
-      'show_in_nav_menus'   => true,
-      'show_in_admin_bar'   => true,
-      'show_in_rest'        => true,
-      'capability_type'     => 'post',
-      'supports'            => array( 'title', 'custom-fields' ),
-      'has_archive'         => false,
-      'can_export'          => true,
-    )
-  );
+	$args = wp_parse_args(
+		array_diff_key( $config, array_flip( array( 'singular', 'plural' ) ) ),
+		array(
+			'public'              => false,
+			'hierarchical'        => false,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => false,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'show_in_nav_menus'   => true,
+			'show_in_admin_bar'   => true,
+			'show_in_rest'        => true,
+			'capability_type'     => 'post',
+			'supports'            => array( 'title', 'custom-fields' ),
+			'has_archive'         => false,
+			'can_export'          => true,
+		)
+	);
 
-  $args['label']  = __( $config['plural'], TEXT_DOMAIN );
-  $args['labels'] = array(
-    'name'          => __( $config['plural'], TEXT_DOMAIN ),
-    'singular_name' => __( $config['singular'], TEXT_DOMAIN ),
-  );
+	$args['label']  = __( $config['plural'], 'custom-theme' );
+	$args['labels'] = array(
+		'name'          => __( $config['plural'], 'custom-theme' ),
+		'singular_name' => __( $config['singular'], 'custom-theme' ),
+	);
 
-  register_post_type( $slug, $args );
+	// phpcs:enable WordPress.WP.I18n.NonSingularStringLiteralText
+
+	register_post_type( $slug, $args );
 }
 
 /**
  * Registers every post type listed in CUSTOM_POST_TYPES.
  */
 function register_custom_post_types() {
-  foreach ( CUSTOM_POST_TYPES as $slug => $config ) {
-    register_custom_post_type( $slug, $config );
-  }
+	foreach ( CUSTOM_POST_TYPES as $slug => $config ) {
+		register_custom_post_type( $slug, $config );
+	}
 }
 add_action( 'init', __NAMESPACE__ . '\register_custom_post_types' );

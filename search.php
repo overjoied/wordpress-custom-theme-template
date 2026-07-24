@@ -20,6 +20,7 @@ if ( have_posts() ) {
 
 	<div class="search-result-count">
 		<?php
+		global $wp_query;
 		printf(
 			esc_html(
 				/* translators: %d: The number of search results. */
@@ -27,7 +28,7 @@ if ( have_posts() ) {
 					'We found %d result for your search.',
 					'We found %d results for your search.',
 					(int) $wp_query->found_posts,
-					TEXT_DOMAIN
+					'custom-theme'
 				)
 			),
 			(int) $wp_query->found_posts

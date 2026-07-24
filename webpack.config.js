@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const path = require('path');
 const glob = require('glob');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -91,7 +93,7 @@ module.exports = (env, argv) => {
         {
           host: 'localhost',
           port: 3000,
-          proxy: 'http://localhost/wp-cstm-theme-template-test-site/',
+          proxy: process.env.WP_PROXY_URL || 'http://localhost/wp-site/',
           files: ["build/*/**/*.*", "**/*.php"],
           logPrefix: "Wordpress Block Theme Boilerplate",
           open: true,
