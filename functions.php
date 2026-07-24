@@ -174,7 +174,7 @@ const ALLOWED_CORE_BLOCKS = array(
 /**
  * Register SCF field groups and block-editor overrides.
  */
-require get_template_directory() . "/inc/acf.php";
+require get_template_directory() . '/inc/acf.php';
 
 /**
  * Restrict Gutenberg blocks.

@@ -76,7 +76,7 @@ add_filter( 'block_categories_all', __NAMESPACE__ . '\add_custom_block_category'
  * above-the-fold blocks where deferring would cause a visible delay/shift.
  */
 const NON_DEFERRED_BLOCK_ASSETS = array(
-  'custom-theme/hero' => array( 'script', 'style' ),
+	'custom-theme/hero' => array( 'script', 'style' ),
 );
 
 /**
@@ -93,11 +93,11 @@ function enqueue_custom_block_styles() {
 			fn( $block ): bool => 'custom-theme' === explode( '/', $block->name )[0]
 		)
 	);
-	
+
   	// phpcs:disable Generic.CodeAnalysis.EmptyStatement.DetectedIf, Squiz.Commenting.InlineComment.InvalidEndChar -- Intentionally empty; kept as a documented extension point showing how to conditionally enqueue per-block component assets.
 	foreach ( $blocks as $block_name ) {
-    	if ( page_has_block( $block_name ) ) {
-      		defer_block_assets( $block_name );
+		if ( page_has_block( $block_name ) ) {
+			defer_block_assets( $block_name );
 
 			// Conditionally enqueue the styles and scripts of the components used in a specific block.
 			// if ( $block_name === 'custom-theme/block-name' ) {
@@ -119,16 +119,16 @@ add_action( 'enqueue_block_assets', __NAMESPACE__ . '\enqueue_custom_block_style
  * @param string $block_name The block's registered name, e.g. 'custom-theme/button'.
  */
 function defer_block_assets( $block_name ) {
-  $excluded = NON_DEFERRED_BLOCK_ASSETS[ $block_name ] ?? array();
+	$excluded = NON_DEFERRED_BLOCK_ASSETS[ $block_name ] ?? array();
 
-  if ( ! in_array( 'script', $excluded, true ) ) {
-    wp_script_add_data( generate_block_asset_handle( $block_name, 'script' ), 'strategy', 'defer' );
-  }
+	if ( ! in_array( 'script', $excluded, true ) ) {
+	wp_script_add_data( generate_block_asset_handle( $block_name, 'script' ), 'strategy', 'defer' );
+	}
 
-  if ( ! in_array( 'style', $excluded, true ) ) {
-    global $deferred_styles;
-    $deferred_styles[] = generate_block_asset_handle( $block_name, 'style' );
-  }
+	if ( ! in_array( 'style', $excluded, true ) ) {
+	global $deferred_styles;
+	$deferred_styles[] = generate_block_asset_handle( $block_name, 'style' );
+	}
 }
 
 /**

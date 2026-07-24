@@ -2,10 +2,12 @@
 /**
  * Hero ACF block template.
  *
- * @param array  $block      The block settings and attributes.
- * @param string $content    The block inner HTML (empty — this block has no InnerBlocks).
- * @param bool   $is_preview True during the editor's backend preview render.
- * @param int    $post_id    The post ID this block is rendering against.
+ * @package CustomTheme
+ *
+ * @var array      $block      The block settings and attributes.
+ * @var string     $content    The block inner HTML (empty — this block has no InnerBlocks).
+ * @var bool       $is_preview True during the editor's backend preview render.
+ * @var int        $post_id    The post ID this block is rendering against.
  */
 
 $heading          = get_field( 'heading' );
