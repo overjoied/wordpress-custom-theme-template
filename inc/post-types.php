@@ -19,10 +19,10 @@ namespace CustomTheme;
  */
 const CUSTOM_POST_TYPES = array(
 	'cat' => array(
-		'singular'    => 'Cat',
-		'plural'      => 'Cats',
-		'description' => 'A collection of cats.',
-		'menu_icon'   => 'dashicons-schedule',
+		'singular'      => 'Cat',
+		'plural'        => 'Cats',
+		'description'   => 'A collection of cats.',
+		'menu_icon'     => 'dashicons-schedule',
 		'menu_position' => 5,
 	),
 );

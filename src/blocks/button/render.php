@@ -1,11 +1,13 @@
 <?php
 
-$size = $attributes["size"];
-$text = $attributes["text"];
+$size = $attributes['size'];
+$text = $attributes['text'];
 
-$attr = get_block_wrapper_attributes([
-	'class' => 'btn--' . $size . ' wp-block-custom-theme-button',
-]);
+$attr = get_block_wrapper_attributes(
+	array(
+		'class' => 'btn--' . $size . ' wp-block-custom-theme-button',
+	)
+);
 
 ob_start();
 ?>

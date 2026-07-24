@@ -1,7 +1,7 @@
 <?php
 /**
  * Register custom taxonomies.
- * 
+ *
  * @link https://developer.wordpress.org/reference/functions/register_taxonomy/
  *
  * @author Joanne Joie Cabang

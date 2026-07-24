@@ -24,7 +24,7 @@ function register_blocks() {
 	 *
 	 * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
 	 */
-		if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
+	if ( function_exists( 'wp_register_block_types_from_metadata_collection' ) ) {
 		wp_register_block_types_from_metadata_collection( get_build_directory() . '/blocks', get_build_directory() . '/blocks/blocks-manifest.php' );
 		return;
 	}
@@ -89,7 +89,7 @@ function enqueue_custom_block_styles() {
 
 			// Conditionally enqueue the styles and scripts of the components used in a specific block.
 			// if ( $block_name === 'custom-theme/block-name' ) {
-			//   enqueue_assets('components', 'component-name');
+			// enqueue_assets('components', 'component-name');
 			// }
 		}
 	}

@@ -17,7 +17,7 @@ if ( ! defined( 'TEXT_DOMAIN' ) ) {
 }
 
 global $deferred_styles;
-$deferred_styles = [];
+$deferred_styles = array();
 
 if ( ! function_exists( 'custom_theme_setup' ) ) {
 	/**
@@ -51,7 +51,7 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 
 		register_nav_menus(
 			array(
-				'primary' => __( 'Header Menu', TEXT_DOMAIN),
+				'primary' => __( 'Header Menu', TEXT_DOMAIN ),
 				'footer'  => __( 'Footer Menu', TEXT_DOMAIN ),
 			),
 		);
@@ -60,16 +60,19 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
 		 */
-		add_theme_support( 'html5', array(
-			'comment-list',
-			'comment-form',
-			'search-form',
-			'gallery',
-			'caption',
-			'style',
-			'script',
-			'navigation-widgets',
-		));
+		add_theme_support(
+			'html5',
+			array(
+				'comment-list',
+				'comment-form',
+				'search-form',
+				'gallery',
+				'caption',
+				'style',
+				'script',
+				'navigation-widgets',
+			)
+		);
 
 		/*
 		 * Add support for core custom logo.
@@ -94,64 +97,64 @@ if ( ! function_exists( 'custom_theme_setup' ) ) {
 		add_theme_support( 'customize-selective-refresh-widgets' );
 
 		// Add support for editor styles.
-		add_theme_support( "editor-styles" );
-		add_editor_style( \CustomTheme\get_build_directory() . "/editor/editor.css" );
+		add_theme_support( 'editor-styles' );
+		add_editor_style( \CustomTheme\get_build_directory() . '/editor/editor.css' );
 
 		// remove_theme_support( "core-block-patterns" );
 	}
 }
 
-add_action('after_setup_theme', 'custom_theme_setup');
+add_action( 'after_setup_theme', 'custom_theme_setup' );
 
 /**
  * Load Custom_Theme_Walker_Nav_Menu class.
  */
-require get_template_directory() . "/classes/class-custom-theme-walker-nav-menu.php";
+require get_template_directory() . '/classes/class-custom-theme-walker-nav-menu.php';
 
 /**
  * Load utilities.
  */
-require get_template_directory() . "/inc/utilities.php";
+require get_template_directory() . '/inc/utilities.php';
 
 /**
  * Load template functions.
  */
-require get_template_directory() . "/inc/template-functions.php";
+require get_template_directory() . '/inc/template-functions.php';
 
 /**
  * Load template tags.
  */
-require get_template_directory() . "/inc/template-tags.php";
+require get_template_directory() . '/inc/template-tags.php';
 
 /**
  * Load menu functions.
  */
-require get_template_directory() . "/inc/menu-functions.php";
+require get_template_directory() . '/inc/menu-functions.php';
 
 /**
  * Load custom blocks.
  */
-require get_template_directory() . "/inc/blocks.php";
+require get_template_directory() . '/inc/blocks.php';
 
 /**
  * Load shortcodes.
  */
-require get_template_directory() . "/inc/shortcodes.php";
+require get_template_directory() . '/inc/shortcodes.php';
 
 /**
  * Load custom post types.
  */
-require get_template_directory() . "/inc/post-types.php";
+require get_template_directory() . '/inc/post-types.php';
 
 /**
  * Load custom taxonomies.
  */
-require get_template_directory() . "/inc/taxonomies.php";
+require get_template_directory() . '/inc/taxonomies.php';
 
 /**
  * Load custom sidebars.
  */
-require get_template_directory() . "/inc/sidebars.php";
+require get_template_directory() . '/inc/sidebars.php';
 
 /**
  * Load image sizes.
@@ -161,7 +164,7 @@ require get_template_directory() . "/inc/sidebars.php";
 /**
  * Register Theme Settings.
  */
-require get_template_directory() . "/inc/theme-settings.php";
+require get_template_directory() . '/inc/theme-settings.php';
 
 /**
  * Restrict Gutenberg blocks.
@@ -199,7 +202,7 @@ add_action( 'wp_enqueue_editor', 'enqueue_editor_assets' );
  * Enqueue main assets.
  */
 function enqueue_main_assets() {
-	\CustomTheme\enqueue_assets( 'main', '', false, false, false);
+	\CustomTheme\enqueue_assets( 'main', '', false, false, false );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_main_assets' );
 
@@ -209,12 +212,12 @@ add_action( 'wp_enqueue_scripts', 'enqueue_main_assets' );
 function enqueue_layout_assets() {
 	// Header
 	\CustomTheme\enqueue_assets( 'layout', 'header', false, false, false );
-	
+
 	// Sidebar
 	if ( \CustomTheme\has_sidebar() ) {
 		\CustomTheme\enqueue_assets( 'layout', 'sidebar' );
 	}
-	
+
 	// Footer
 	\CustomTheme\enqueue_assets( 'layout', 'footer' );
 }

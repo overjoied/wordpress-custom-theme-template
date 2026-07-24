@@ -16,14 +16,18 @@ class Custom_Theme_Walker_Nav_Menu extends Walker_Nav_Menu {
 	 * @param int      $current_object_id Optional. ID of the current menu item. Default 0.
 	 */
 	function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
-		$classes = ! empty( $item->classes ) ? ( array ) $item->classes : array();
+		$classes      = ! empty( $item->classes ) ? (array) $item->classes : array();
 		$has_children = in_array( 'menu-item-has-children', $classes );
-		$is_cta = get_post_meta( $item->ID, '_menu_item_is_cta', true );
+		$is_cta       = get_post_meta( $item->ID, '_menu_item_is_cta', true );
 
 		// Define class list
-		$li_classes = ['menu-item'];
-		if ( $has_children ) $li_classes[] = 'menu-item--is-dropdown';
-		if ( $is_cta ) $li_classes[] = 'menu-item--is-cta';
+		$li_classes = array( 'menu-item' );
+		if ( $has_children ) {
+			$li_classes[] = 'menu-item--is-dropdown';
+		}
+		if ( $is_cta ) {
+			$li_classes[] = 'menu-item--is-cta';
+		}
 
 		// Open list item
 		$output .= '<li class="' . esc_attr( implode( ' ', $li_classes ) ) . '">';

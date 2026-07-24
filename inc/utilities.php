@@ -12,19 +12,19 @@ namespace CustomTheme;
  * Retrieves template directory build URI for the active theme.
  */
 function get_build_directory_uri() {
-	return get_template_directory_uri() . "/build";
+	return get_template_directory_uri() . '/build';
 }
 
 /**
  * Retrieves template directory build path for the active theme.
  */
 function get_build_directory() {
-	return get_template_directory() . "/build";
+	return get_template_directory() . '/build';
 }
 
 /**
  * Enqueues styles and scripts.
- * 
+ *
  * @param $type      The type of asset to enqueue.
  * @param $name      Filenames of the assets to enqueue. Applicable only to
  *                   component and layout types.
@@ -32,7 +32,7 @@ function get_build_directory() {
  * @param $defer_css Whether to defer the stylesheet.
  * @param $defer_js  Whether to defer the script or load it asynchronously.
  */
-function enqueue_assets( $type = 'main', $name = '', $in_footer = true, $defer_css = true, $defer_js = true) {
+function enqueue_assets( $type = 'main', $name = '', $in_footer = true, $defer_css = true, $defer_js = true ) {
 	global $deferred_styles;
 
 	$allowed_types = array( 'admin', 'editor', 'main', 'components', 'layout' );
@@ -90,10 +90,10 @@ function build_file_exists( $file ) {
  */
 function enqueue_script( $handle, $path, $depth, $version, $defer = true, $in_footer = false ) {
 	if ( build_file_exists( get_build_directory() . "/{$path}.js" ) ) {
-		$src = get_build_directory_uri() . "/{$path}.js";
+		$src  = get_build_directory_uri() . "/{$path}.js";
 		$args = array(
 			'strategy'  => $defer ? 'defer' : 'async',
-			'in_footer' => $in_footer
+			'in_footer' => $in_footer,
 		);
 
 		wp_enqueue_script( $handle, $src, $depth, $version, $args );
@@ -113,7 +113,7 @@ function enqueue_style( $handle, $path, $depth, $version, $media = 'all' ) {
 
 /**
  * Checks if the current page has a sidebar.
- * 
+ *
  * @return boolean
  */
 function has_sidebar() {
@@ -122,24 +122,24 @@ function has_sidebar() {
 
 /**
  * Generates an SVG icon element.
- * 
+ *
  * @param string $icon    The filename of the icon without the extension.
  * @param array  $classes The list of classes to add in array format.
- * 
+ *
  * @return string
  */
 function get_icon( $icon, $classes = array() ) {
-	$class_str = "";
-	$sprite_path = \CustomTheme\get_build_directory_uri() . "/assets/svg/sprite.svg";
+	$class_str   = '';
+	$sprite_path = \CustomTheme\get_build_directory_uri() . '/assets/svg/sprite.svg';
 
 	// If $classes are passed, add the classes to the SVG class.
-	if( count( $classes ) ) {
-		$class_str .= " " . join( " ", $classes );
+	if ( count( $classes ) ) {
+		$class_str .= ' ' . join( ' ', $classes );
 	}
 
 	return (
 		"<svg class='icon" . $class_str . "'>" .
-			"<use xlink:href='" . ( $sprite_path . "#" . $icon ) . "'></use>" .
-		"</svg>"
+			"<use xlink:href='" . ( $sprite_path . '#' . $icon ) . "'></use>" .
+		'</svg>'
 	);
 }

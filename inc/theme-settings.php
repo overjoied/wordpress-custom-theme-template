@@ -3,7 +3,7 @@
  * Theme Settings
  *
  * @link https://developer.wordpress.org/plugins/settings/custom-settings-page/
- * 
+ *
  * @author Joanne Joie Cabang
  * @package CustomTheme
  */
@@ -85,7 +85,7 @@ function register_theme_settings() {
 	);
 
 	// Add fields in the 'Custom Code' section.
-	foreach( $custom_code_fields as $field ) {
+	foreach ( $custom_code_fields as $field ) {
 		add_settings_field(
 			'append-to-' . $field,
 			__( 'Append to ' . ucfirst( $field ), TEXT_DOMAIN ),

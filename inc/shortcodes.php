@@ -9,9 +9,12 @@
 namespace CustomTheme;
 
 function button_func( $atts, $content = null, $tag = '' ) {
-	$atts = shortcode_atts( array(
-		'text' => 'Button',
-	), $atts );
+	$atts = shortcode_atts(
+		array(
+			'text' => 'Button',
+		),
+		$atts
+	);
 
 	\CustomTheme\enqueue_assets( 'components', $tag );
 

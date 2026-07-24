@@ -143,4 +143,4 @@ function filter_stylesheet( $html, $handle, $href, $media ) {
 
 	return $html;
 }
-add_filter('style_loader_tag', __NAMESPACE__ . '\filter_stylesheet', 10, 4);
+add_filter( 'style_loader_tag', __NAMESPACE__ . '\filter_stylesheet', 10, 4 );

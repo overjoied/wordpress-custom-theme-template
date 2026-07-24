@@ -10,7 +10,7 @@ namespace CustomTheme;
 
 /**
  * Appends a checkbox (is_cta) in the current menu item's settings.
- * 
+ *
  * @param string        $item_id   The ID of the menu item.
  * @param WP_Post       $menu_item The data object of the menu item.
  * @param int           $depth     The depth of the menu item.
@@ -39,12 +39,12 @@ add_action( 'wp_nav_menu_item_custom_fields', __NAMESPACE__ . '\add_is_cta_check
 
 /**
  * Updates or deletes the _menu_item_is_cta meta for the current menu item.
- * 
+ *
  * @param int $menu_id         The ID of the menu.
  * @param int $menu_item_db_id The ID of the menu item.
  */
 function update_is_cta_meta( $menu_id, $menu_item_db_id ) {
-	if ( isset( $_POST['menu-item-is-cta'][$menu_item_db_id] ) ) {
+	if ( isset( $_POST['menu-item-is-cta'][ $menu_item_db_id ] ) ) {
 		update_post_meta( $menu_item_db_id, '_menu_item_is_cta', '1' );
 	} else {
 		delete_post_meta( $menu_item_db_id, '_menu_item_is_cta' );

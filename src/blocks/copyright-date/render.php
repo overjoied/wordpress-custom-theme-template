@@ -1,5 +1,5 @@
 <?php
-$current_year = date( "Y" );
+$current_year = date( 'Y' );
 
 // Determine which content to display.
 if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrentYear'] === $current_year ) {
@@ -19,4 +19,3 @@ if ( isset( $attributes['fallbackCurrentYear'] ) && $attributes['fallbackCurrent
 }
 
 echo wp_kses_post( $block_content );
-?>

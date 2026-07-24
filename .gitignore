@@ -8,6 +8,9 @@ node_modules/
 dist/
 build/
 
+# Composer artifact files
+vendor/
+
 # Per-developer local environment overrides (see .env.example)
 .env
 

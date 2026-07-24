@@ -1,7 +1,7 @@
 <?php
 /**
  * Register custom sidebars.
- * 
+ *
  * @link https://developer.wordpress.org/reference/functions/register_post_type/
  *
  * @author Joanne Joie Cabang
@@ -32,15 +32,17 @@ function get_custom_sidebars() {
 
 function register_custom_sidebars() {
 	foreach ( get_custom_sidebars() as $sidebar ) {
-		register_sidebar( array(
-			'name'          => __( $sidebar['name'], TEXT_DOMAIN ),
-			'id'            => $sidebar['id'],
-			'description'   => __( 'Widgets in this area will appear in ' . $sidebar['name'] . '.', TEXT_DOMAIN ),
-			'before_widget' => '<div id="%1$s" class="widget %2$s">',
-			'after_widget'  => '</div>',
-			'before_title'  => '<h2 class="widget-title">',
-			'after_title'   => '</h2>',
-		) );
+		register_sidebar(
+			array(
+				'name'          => __( $sidebar['name'], TEXT_DOMAIN ),
+				'id'            => $sidebar['id'],
+				'description'   => __( 'Widgets in this area will appear in ' . $sidebar['name'] . '.', TEXT_DOMAIN ),
+				'before_widget' => '<div id="%1$s" class="widget %2$s">',
+				'after_widget'  => '</div>',
+				'before_title'  => '<h2 class="widget-title">',
+				'after_title'   => '</h2>',
+			)
+		);
 	}
 }
 add_action( 'widgets_init', __NAMESPACE__ . '\register_custom_sidebars' );
