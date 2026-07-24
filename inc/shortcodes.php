@@ -8,13 +8,9 @@
 
 namespace CustomTheme;
 
-function button_func( $atts, $content = null, $tag ) {
-  global $post;
-
-  $a = shortcode_atts( array(
-    'text'  => 'Button',
-    'style' => 'solid',
-    'size'  => 'md',
+function button_func( $atts, $content = null, $tag = '' ) {
+  $atts = shortcode_atts( array(
+    'text' => 'Button',
   ), $atts );
 
   \CustomTheme\enqueue_assets( 'components', $tag );
@@ -22,7 +18,7 @@ function button_func( $atts, $content = null, $tag ) {
   ob_start();
   ?>
 
-  <button><?php echo $a['text']; ?></button>
+  <button><?php echo $atts['text']; ?></button>
 
   <?php
   return ob_get_clean();
